@@ -15,7 +15,7 @@ int Ultrasonic::distance()
   // defines variables
   long duration; // variable for the duration of sound wave travel
   int distance; // variable for the distance measurement
-    
+  /***
   // Clears the trigPin condition
   digitalWrite(trigPin, LOW);
   delayMicroseconds(2);
@@ -29,6 +29,8 @@ int Ultrasonic::distance()
   
   // Calculating the distance
   distance = duration * 0.034 / 2; // Speed of sound wave divided by 2 (go and back)
+  ***/
+
   return distance;
 }
 
