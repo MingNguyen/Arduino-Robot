@@ -46,9 +46,38 @@ int ObsAvoiding::objectPos(int disFL, int disFR, int disBL, int disBR, bool line
     }
 }
 
-int ObsAvoiding::nextAction(int position) {
+int ObsAvoiding::nextAction(int position, int speed) {
+    /**
+     * getPosition: based on distance of 4 ultrasonic sensor, determine the position of car and object
+     * return:
+     * -2 -> when all dis infinity, out line detect, used to move left -> move right to comeback line
+     * -1 -> when disFR <=10    , disFL infinity -> object before + right side -> move left to avoid object
+     * 0  -> when disFR infinity, disFL infinity, disBR or disBL <= 10 -> go forward
+     * 1  -> when disFR infinity, disFL <=10     -> object before + left side  -> move right to avoid object
+     * 2  -> when all dis infinity, out line detect, used to move right -> move left to comeback line
+     * */
+
     switch (position) {
-        
+        case 0:
+            // go forward
+            Wheels::movingForward(speed,speed,speed,speed);
+            break;
+        case 1:
+            // move right
+            Wheels::movingRight(speed,speed,speed,speed);
+            break;
+        case 2:
+            // move left
+            Wheels::movingLeft(speed,speed,speed,speed);
+            break;
+        case -1:
+            // move left
+            Wheels::movingLeft(speed,speed,speed,speed);
+            break;
+        case -2:
+            // move right
+            Wheels::movingRight(speed,speed,speed,speed);
+            break;
     }
 }
 
