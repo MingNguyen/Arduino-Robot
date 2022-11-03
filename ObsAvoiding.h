@@ -24,7 +24,7 @@ public:
 
     int _position = 0;
     int objectPos(int disFL, int disFR, int disBL, int disBR, bool line_detect);
-    int nextAction(int position);
+    int nextAction(int position, int speed);
     void avoidObject();
 
 };
