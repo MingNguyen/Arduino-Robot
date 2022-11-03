@@ -6,16 +6,29 @@ class Wheels
 private:
 
 public:
-    Motor FR;
-    Motor FL;
-    Motor BR;
-    Motor BL;
+    static Motor FR;
+    static Motor FL;
+    static Motor BR;
+    static Motor BL;
     Wheels();
-    void updateFR(int analogPin, int digitalPin, int forward);
-    void updateFL(int analogPin, int digitalPin, int forward);
-    void updateBR(int analogPin, int digitalPin, int forward);
-    void updateBR(int analogPin, int digitalPin, int forward);
-};
 
+    void setFR(int analogPin, int digitalPin, int forward);
+    void setFL(int analogPin, int digitalPin, int forward);
+    void setBR(int analogPin, int digitalPin, int forward);
+    void setBL(int analogPin, int digitalPin, int forward);
+
+    void controlFR(int value,bool dir);
+    void controlFL(int value,bool dir);
+    void controlBR(int value,bool dir);
+    void controlBL(int value,bool dir);
+
+
+    static void movingForward(int valueFR, int valueFL, int valueBR, int valueBL);
+    static void movingBackward(int valueFR, int valueFL, int valueBR, int valueBL);
+    static void movingLeft(int valueFR, int valueFL, int valueBR, int valueBL);
+    static void movingRight(int valueFR, int valueFL, int valueBR, int valueBL);
+    static void turnLeft(int valueFR, int valueFL, int valueBR, int valueBL);
+    static void turnRight(int valueFR, int valueFL, int valueBR, int valueBL);
+};
 
 #endif
