@@ -3,12 +3,12 @@
 Motor::Motor(int analogPin, int digitalPin, int forwardPin){
     this -> analogPin = analogPin;
     this -> digitalPin = digitalPin;
-    this -> IsAnalogForward = forwardPin;
+    this -> IsAnalogForward = forwardPin == analogPin;
 }
 Motor::Motor(){
-    this -> analogPin = NULL;
-    this -> digitalPin = NULL;
-    this -> IsAnalogForward = NULL;
+    this -> analogPin = -1;
+    this -> digitalPin = -1;
+    this -> IsAnalogForward = -1;
 }
 void Motor::speedControl(int value,bool dir){
     if (IsAnalogForward){
