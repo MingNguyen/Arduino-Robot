@@ -21,4 +21,6 @@ public:
     int setBL(int trigPin, int echoPin);
 
     int* getAllDis(Ultrasonic FR, Ultrasonic FL, Ultrasonic BR, Ultrasonic BL);
+
+
 };
