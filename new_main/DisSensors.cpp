@@ -1,6 +1,13 @@
 #include "Arduino.h"
 #include "DisSensors.h"
 
+DisSensors::DisSensors(){
+    _FL = Ultrasonic();
+    _FR = Ultrasonic();
+    _BL = Ultrasonic();
+    _BR = Ultrasonic();
+}
+
 int DisSensors::setFL(int trigPin, int echoPin) {
     _FL = Ultrasonic(trigPin, echoPin);
 }
@@ -17,12 +24,12 @@ int DisSensors::setBR(int trigPin, int echoPin) {
     _BR = Ultrasonic(trigPin, echoPin);
 }
 
-int* DisSensors::getAllDis(Ultrasonic FR, Ultrasonic FL, Ultrasonic BR, Ultrasonic BL) {
-    int now = millis();
-    int disFR = FR.distance(now);
-    int disFL = FL.distance(now);
-    int disBR = BR.distance(now);
-    int disBL = BL.distance(now);
+int* DisSensors::getAllDis() {
+    unsigned long now = millis();
+    int disFR = _FR.distance();
+    int disFL = _FL.distance();
+    int disBR = _BR.distance();
+    int disBL = _BL.distance();
     if (disFL != -1){
         _allDis[0] = disFL;
     }
