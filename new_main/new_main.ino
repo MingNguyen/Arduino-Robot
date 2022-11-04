@@ -1,5 +1,8 @@
  #include "Wheels.h"
  #include "Motor.h"
+ #include "Ultrasonic.h"
+ #include "DisSensors.h"
+ #include "ObsAvoiding.h"
  int IN1_A = 4;
  int IN2_A = 5;
  int IN3_A = 6;
@@ -11,13 +14,14 @@
  int IN4_B = 11;
  int encoder1 = 2;
  bool state1 = true; 
- int envalue1 = 0; 
- 
- //int MAX_SPEED = 255;
- //int MIN_SPEED = 0;
+ int envalue1 = 0;
+ int triPin = -1;
+ int echoFR = -2, echoFL =-3, echoBR = -4, echoBL = -5;
  int s1;
 
-  Wheels myWheels = Wheels();
+  Wheels myWheels;
+  DisSensors myDisSensors;
+  ObsAvoiding myObsAvoiding;
 void setup() {
   Serial.begin(9600);
   pinMode(IN2_A, OUTPUT); // digital right front
@@ -33,10 +37,20 @@ void setup() {
   pinMode(encoder1, INPUT_PULLUP);
   attachInterrupt(digitalPinToInterrupt(2), read_encoder, RISING);
 
+  myWheels = Wheels();
   myWheels.setFR(IN1_A,IN2_A,IN2_A);
   myWheels.setFL(IN4_A,IN3_A,IN4_A);
   myWheels.setBL(IN2_B,IN1_B,IN2_B);
   myWheels.setBR(IN3_B,IN4_B,IN4_B);
+
+  myDisSensors = DisSensors();
+
+  myDisSensors.setFR(triPin,echoFR);
+  myDisSensors.setFL(triPin,echoFL);
+  myDisSensors.setBR(triPin,echoBR);
+  myDisSensors.setBL(triPin,echoBL);
+
+  myObsAvoiding = ObsAvoiding(myDisSensors);
 
 }
 
