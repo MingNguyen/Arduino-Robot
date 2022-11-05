@@ -1,8 +1,12 @@
 #include "Arduino.h"
-#include "Wheels.h"
 #include "ObsAvoiding.h"
 
-int ObsAvoiding::objectPos(int disFL, int disFR, int disBL, int disBR, bool line_detect) {
+ObsAvoiding::ObsAvoiding() {}
+
+ObsAvoiding::ObsAvoiding(DisSensors myDisSensors){
+    this -> _myDisSensors = myDisSensors;
+}
+int ObsAvoiding::getPos( bool line_detect) {
     /**
      * getPosition: based on distance of 4 ultrasonic sensor, determine the position of car and object
      * return:
@@ -12,26 +16,29 @@ int ObsAvoiding::objectPos(int disFL, int disFR, int disBL, int disBR, bool line
      * 1  -> when disFR infinity, disFL <=10     -> object before + left side  -> move right to avoid object
      * 2  -> when all dis infinity, out line detect, used to move right -> move left to comeback line
      * */
+     int now = millis();
+    _myDisSensors.getAllDis();
 
     int min_front = 10;
+    int disList[4] = {0};
 
-    if(disFL < min_front and disFR < min_front){
+    if(_myDisSensors.disFL < min_front and _myDisSensors.disFR < min_front){
         _last_pos = 1;
         return 1;
     }
-    else if(disFL < min_front and disFR > min_front){
+    else if(_myDisSensors.disFL < min_front and _myDisSensors.disFR > min_front){
         _last_pos = 1;
         return 1;
     }
-    else if(disFL > min_front and disFR < min_front){
+    else if(_myDisSensors.disFL > min_front and _myDisSensors.disFR < min_front){
         // object before + right side -> move left to avoid object
         _last_pos = -1;
         return -1;
     }
-    else if(disFL > min_front and disFR > min_front){
+    else if(_myDisSensors.disFL > min_front and _myDisSensors.disFR > min_front){
         if (_last_pos != 0)
         {
-            if (disBL < min_front/2 or disBR < min_front/2)
+            if (_myDisSensors.disBL < min_front/2 or _myDisSensors.disBR < min_front/2)
             {
                 return 0;
             }
@@ -46,7 +53,7 @@ int ObsAvoiding::objectPos(int disFL, int disFR, int disBL, int disBR, bool line
     }
 }
 
-int ObsAvoiding::nextAction(int position, int speed) {
+void ObsAvoiding::nextAction(Wheels myWheels, int position, int speed) {
     /**
      * getPosition: based on distance of 4 ultrasonic sensor, determine the position of car and object
      * return:
@@ -60,27 +67,24 @@ int ObsAvoiding::nextAction(int position, int speed) {
     switch (position) {
         case 0:
             // go forward
-            Wheels::movingForward(speed,speed,speed,speed);
+            myWheels.movingForward(speed,speed,speed,speed);
             break;
         case 1:
             // move right
-            Wheels::movingRight(speed,speed,speed,speed);
+            myWheels.movingRight(speed,speed,speed,speed);
             break;
         case 2:
             // move left
-            Wheels::movingLeft(speed,speed,speed,speed);
+            myWheels.movingLeft(speed,speed,speed,speed);
             break;
         case -1:
             // move left
-            Wheels::movingLeft(speed,speed,speed,speed);
+            myWheels.movingLeft(speed,speed,speed,speed);
             break;
         case -2:
             // move right
-            Wheels::movingRight(speed,speed,speed,speed);
+            myWheels.movingRight(speed,speed,speed,speed);
             break;
     }
 }
 
-void ObsAvoiding::avoidObject() {
-
-}

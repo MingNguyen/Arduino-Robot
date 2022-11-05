@@ -8,6 +8,8 @@ private:
      * @param _last_pos: last position of car and object
      * */
     int _last_pos = 0;
+    int disFL, disFR, disBL, disBR;
+    DisSensors _myDisSensors;
 public:
     /**
      * getPosition: based on distance of 4 ultrasonic sensor, determine the position of car and object
@@ -22,10 +24,11 @@ public:
      * @param line_detect: check car in line or not
      * */
 
+    ObsAvoiding();
+    ObsAvoiding(DisSensors myDisSensors);
     int _position = 0;
-    int objectPos(int disFL, int disFR, int disBL, int disBR, bool line_detect);
-    int nextAction(int position, int speed);
-    void avoidObject();
+    int getPos(bool line_detect);
+    void nextAction(Wheels myWheels, int position, int speed);
 
 };
 

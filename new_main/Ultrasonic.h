@@ -7,15 +7,14 @@
 class Ultrasonic
 {
   public:
+    Ultrasonic();
     Ultrasonic(int trigPin, int echoPin);
-    int getEcho();
-    int getTrig();
     int getStartTime();
     void setStartTime(int start);
-    int distance(int start);
-    void print_distance() ;
+    int distance(int now);
+    void print_distance();
   private:
-    int _echoPin, _trigPin, _start;
+    int _echoPin, _trigPin, _start, _distance;
 };
 
 #endif
