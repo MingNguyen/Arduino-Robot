@@ -31,7 +31,5 @@ void Speed::updateFL(Wheels myWheels, int set_speed, int alpha) {
 
     if(real_speed > set_speed){
         myWheels.FL.updateSpeed(-alpha);
-    } else{
-
     }
 }
