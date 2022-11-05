@@ -6,7 +6,7 @@ ObsAvoiding::ObsAvoiding() {}
 ObsAvoiding::ObsAvoiding(DisSensors myDisSensors){
     this -> _myDisSensors = myDisSensors;
 }
-int ObsAvoiding::objectPos( bool line_detect) {
+int ObsAvoiding::getPos( bool line_detect) {
     /**
      * getPosition: based on distance of 4 ultrasonic sensor, determine the position of car and object
      * return:
@@ -53,7 +53,7 @@ int ObsAvoiding::objectPos( bool line_detect) {
     }
 }
 
-int ObsAvoiding::nextAction(Wheels myWheels, int position, int speed) {
+void ObsAvoiding::nextAction(Wheels myWheels, int position, int speed) {
     /**
      * getPosition: based on distance of 4 ultrasonic sensor, determine the position of car and object
      * return:
