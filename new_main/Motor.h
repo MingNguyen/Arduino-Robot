@@ -11,7 +11,10 @@ class Motor
 private:
     int analogPin;
     int digitalPin;
+    int _speed;
+    int _dir;
     bool IsAnalogForward;
+
 public:
     /**
      * Constructor:
@@ -28,6 +31,12 @@ public:
      * @param dir: the direction of the motor
     */
     void speedControl(int value,bool dir);
+
+    /**
+     * Edit speed to balance between motors.
+     * @param alpha: learning step speed = speed +/- alpha
+     */
+    void updateSpeed(int alpha);
 };
 
 #endif

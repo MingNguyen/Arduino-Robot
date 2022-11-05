@@ -27,8 +27,8 @@ public:
     ObsAvoiding();
     ObsAvoiding(DisSensors myDisSensors);
     int _position = 0;
-    int objectPos(bool line_detect);
-    int nextAction(Wheels myWheels, int position, int speed);
+    int getPos(bool line_detect);
+    void nextAction(Wheels myWheels, int position, int speed);
 
 };
 
