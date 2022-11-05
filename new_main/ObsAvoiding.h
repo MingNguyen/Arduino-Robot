@@ -1,14 +1,14 @@
-#ifndef ObsAvoiding_h
-#define ObsAvoiding_h
 #include "Arduino.h"
 #include "DisSensors.h"
 #include "Wheels.h"
+
 class ObsAvoiding{
 private:
     /**
      * @param _last_pos: last position of car and object
      * */
     int _last_pos = 0;
+    int disFL, disFR, disBL, disBR;
     DisSensors _myDisSensors;
 public:
     /**
@@ -23,13 +23,12 @@ public:
      * @param dis: distance
      * @param line_detect: check car in line or not
      * */
+
     ObsAvoiding();
     ObsAvoiding(DisSensors myDisSensors);
-    void setDisSenSors(DisSensors myDisSensors);
     int _position = 0;
     int objectPos(bool line_detect);
-    int nextAction(Wheels myWheels,int position, int speed);
-    void avoidObject();
+    int nextAction(Wheels myWheels, int position, int speed);
 
 };
-#endif
+

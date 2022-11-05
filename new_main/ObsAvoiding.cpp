@@ -1,11 +1,9 @@
 #include "Arduino.h"
 #include "ObsAvoiding.h"
-ObsAvoiding::ObsAvoiding(){
-}
+
+ObsAvoiding::ObsAvoiding() {}
+
 ObsAvoiding::ObsAvoiding(DisSensors myDisSensors){
-    this -> _myDisSensors = myDisSensors;
-}
-void ObsAvoiding::setDisSenSors(DisSensors myDisSensors){
     this -> _myDisSensors = myDisSensors;
 }
 int ObsAvoiding::objectPos( bool line_detect) {
@@ -18,7 +16,9 @@ int ObsAvoiding::objectPos( bool line_detect) {
      * 1  -> when disFR infinity, disFL <=10     -> object before + left side  -> move right to avoid object
      * 2  -> when all dis infinity, out line detect, used to move right -> move left to comeback line
      * */
+     int now = millis();
     _myDisSensors.getAllDis();
+
     int min_front = 10;
     int disList[4] = {0};
 
@@ -53,7 +53,7 @@ int ObsAvoiding::objectPos( bool line_detect) {
     }
 }
 
-int ObsAvoiding::nextAction(Wheels myWheels,int position, int speed) {
+int ObsAvoiding::nextAction(Wheels myWheels, int position, int speed) {
     /**
      * getPosition: based on distance of 4 ultrasonic sensor, determine the position of car and object
      * return:
@@ -88,6 +88,3 @@ int ObsAvoiding::nextAction(Wheels myWheels,int position, int speed) {
     }
 }
 
-void ObsAvoiding::avoidObject() {
-
-}

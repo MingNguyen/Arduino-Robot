@@ -1,27 +1,19 @@
 #include "Arduino.h"
 #include "Ultrasonic.h"
-Ultrasonic::Ultrasonic(){
-  _echoPin = -1;
-  _trigPin = -1 ;
-  _start = -1;
+
+Ultrasonic::Ultrasonic() {
+    this ->_start = millis();
+    this -> _trigPin = -1;
+    this -> _echoPin = -1;
 }
+
 Ultrasonic::Ultrasonic(int trigPin, int echoPin)
 {
-
   pinMode(trigPin, OUTPUT); // Sets the trigPin as an OUTPUT 
   pinMode(echoPin, INPUT); // Sets the echoPin as an INPUT
   _start = millis();
   _trigPin = trigPin;
   _echoPin = echoPin;
-
-}
-
-int Ultrasonic::getEcho() {
-    return _echoPin;
-}
-
-int Ultrasonic::getTrig() {
-    return _trigPin;
 }
 
 int Ultrasonic::getStartTime() {
@@ -32,10 +24,11 @@ void Ultrasonic::setStartTime(int start) {
     _start = start;
 }
 
-int Ultrasonic::distance(){
+int Ultrasonic::distance(int now)
+{
   // defines variables
   int distance; // variable for the distance measurement
-  long long now = millis();
+
   // trigPin on
   digitalWrite(_trigPin, HIGH);
 
@@ -48,6 +41,7 @@ int Ultrasonic::distance(){
 
       // update start
       _start = millis();
+      _distance = distance;
       return int(distance);
   }
   else return -1;
@@ -55,9 +49,7 @@ int Ultrasonic::distance(){
 
 void Ultrasonic::print_distance()
 {
-  int distance = Ultrasonic::distance();
-  // Displays the distance on the Serial Monitor
   Serial.print("Distance: ");
-  Serial.print(distance);
+  Serial.print(_distance);
   Serial.println(" cm");
 }
