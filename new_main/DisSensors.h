@@ -1,3 +1,4 @@
+#ifndef DisSensors_h
 #define DisSensors_h
 
 #include "Arduino.h"
@@ -7,7 +8,6 @@ class DisSensors{
 private:
     int trigPin;
     int echoPin_FR, echoPin_FL, echoPin_BR, echoPin_BL;
-
 
 public:
     Ultrasonic _FR;
@@ -25,3 +25,4 @@ public:
 
     void getAllDis();
 };
+#endif

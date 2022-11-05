@@ -15,11 +15,11 @@ void Motor::speedControl(int value,bool dir){
     _dir = dir;
     if (IsAnalogForward){
         analogWrite(analogPin,dir?value:MAX_SPEED-value);
-        digitalWrite(digitalPin,!dir);
+        analogWrite(digitalPin,dir?value:MAX_SPEED-value);
     }
     else{
         analogWrite(analogPin,dir?MAX_SPEED-value:value);
-        digitalWrite(digitalPin,dir);
+        analogWrite(digitalPin,dir);
     }
 }
 
