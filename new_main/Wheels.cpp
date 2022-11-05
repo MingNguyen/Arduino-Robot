@@ -63,13 +63,13 @@ void Wheels::movingRight(int valueFR, int valueFL, int valueBR, int valueBL){
 }
 void Wheels::turnLeft(int valueFR, int valueFL, int valueBR, int valueBL){
     FR.speedControl(valueFR, true);
-    FL.speedControl(valueFL,true);
-    BR.speedControl(valueBR,false);
+    FL.speedControl(valueFL, false);
+    BR.speedControl(valueBR, true);
     BL.speedControl(valueBL,false);
 }
 void Wheels::turnRight(int valueFR, int valueFL, int valueBR, int valueBL){
     FR.speedControl(valueFR, false);
-    FL.speedControl(valueFL,false);
-    BR.speedControl(valueBR,true);
+    FL.speedControl(valueFL, true);
+    BR.speedControl(valueBR, false);
     BL.speedControl(valueBL,true);
 }

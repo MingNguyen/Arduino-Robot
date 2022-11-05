@@ -1,3 +1,4 @@
+#include "Arduino.h"
 #include "Wheels.h"
 #include "Motor.h"
 #include "Ultrasonic.h"
@@ -6,15 +7,21 @@
 #include "Speed.h"
 #include "LineFollow.h"
 
-int IN1_A = 4;
-int IN2_A = 5;
-int IN3_A = 6;
-int IN4_A = 7;
+int IN1_A = 7;
+int IN2_A = 6;
+int IN3_A = 5;
+int IN4_A = 4;
 
 int IN1_B = 8;
 int IN2_B = 9;
 int IN3_B = 10;
 int IN4_B = 11;
+
+int IR1 = 25;
+int IR2 = 27;
+int IR3 = 29;
+int IR4 = 31;
+int IR5 = 33;
 
 int encoder1 = 2;
 bool state1 = true;
@@ -41,6 +48,12 @@ void setup() {
   pinMode(IN1_B, OUTPUT); // analog left back
   pinMode(IN3_B, OUTPUT); // digital right back
 
+  pinMode(IR1, INPUT); //line detect
+  pinMode(IR2, INPUT);
+  pinMode(IR3, INPUT);
+  pinMode(IR4, INPUT);
+  pinMode(IR5, INPUT);
+
   myWheels = Wheels();
   myWheels.setFR(IN1_A,IN2_A,IN2_A);
   myWheels.setFL(IN4_A,IN3_A,IN4_A);
@@ -56,9 +69,9 @@ void setup() {
 
 
 
-  myLineFollow = LineFollow();
+  myLineFollow = LineFollow(IR1, IR2, IR3, IR4, IR5);
   bool inLine = myLineFollow.inLine();
-
+  myLineFollow.follow(myWheels, 50, 200);
 
   myObsAvoiding = ObsAvoiding(myDisSensors);
   int obsPosition = myObsAvoiding.getPos(inLine);

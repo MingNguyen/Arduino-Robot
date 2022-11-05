@@ -1,11 +1,8 @@
-//
-// Created by Asus on 11/5/2022.
-//
-
 #ifndef ROBOT_SPEED_H
 #define ROBOT_SPEED_H
 #include "Encoder.h"
 #include "Wheels.h"
+#include "Arduino.h"
 
 class Speed{
 private:
