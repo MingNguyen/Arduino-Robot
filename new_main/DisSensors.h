@@ -1,3 +1,4 @@
+#ifndef DisSensors_h
 #define DisSensors_h
 
 #include "Arduino.h"
@@ -29,3 +30,4 @@ public:
 
 
 };
+#endif

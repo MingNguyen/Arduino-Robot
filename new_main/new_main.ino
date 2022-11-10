@@ -50,7 +50,8 @@ void setup() {
   myDisSensors.setBR(triPin,echoBR);
   myDisSensors.setBL(triPin,echoBL);
 
-  myObsAvoiding = ObsAvoiding(myDisSensors);
+  myObsAvoiding = ObsAvoiding();
+  myObsAvoiding.setDisSenSors(myDisSensors);
 
 }
 
