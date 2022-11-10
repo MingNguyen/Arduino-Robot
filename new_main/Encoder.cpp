@@ -1,20 +1,17 @@
 #include "Encoder.h"
 #include "Arduino.h"
 
-Encoder::Encoder() {
-    this -> _enPin = -1;
-    this -> _previousMillis = millis();
-}
 
 Encoder::Encoder(int enPin) {
     this ->_enPin= enPin;
     this -> _previousMillis = millis();
     pinMode(enPin, INPUT_PULLUP);
+    attachInterrupt(digitalPinToInterrupt(_enPin),countPulse,HIGH);
     
 }
 
 void Encoder::countPulse() {
-    this -> _counter++;
+    _counter++;
 }
 
 int Encoder::getSpeed() {

@@ -1,6 +1,5 @@
 #include "Arduino.h"
 #include "ObsAvoiding.h"
-<<<<<<< HEAD
 ObsAvoiding::ObsAvoiding(){
 }
 ObsAvoiding::ObsAvoiding(DisSensors myDisSensors){
@@ -10,7 +9,6 @@ void ObsAvoiding::setDisSenSors(DisSensors myDisSensors){
     this -> _myDisSensors = myDisSensors;
 }
 int ObsAvoiding::objectPos( bool line_detect) {
-=======
 
 ObsAvoiding::ObsAvoiding() {}
 
@@ -18,7 +16,6 @@ ObsAvoiding::ObsAvoiding(DisSensors myDisSensors){
     this -> _myDisSensors = myDisSensors;
 }
 int ObsAvoiding::getPos( bool line_detect) {
->>>>>>> 3441fe24f9dea611b79800b4e2a66f74c9f079c3
     /**
      * getPosition: based on distance of 4 ultrasonic sensor, determine the position of car and object
      * return:
