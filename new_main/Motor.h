@@ -16,7 +16,6 @@ private:
     bool IsAnalogForward;
 
 public:
-    Motor();
     /**
      * Constructor:
      * @param analogPin: the analog pin of arduino connecting to the driver
@@ -24,6 +23,7 @@ public:
      * @param forwardPin: Among 2 above pin, which one cause the moving forward if it is high
     */
     Motor(int analogPin, int digitalPin, int forwardPin);
+    void setPin(int analogPin, int digitalPin, int forwardPin);
 
     /**
      * The function to demmand the rotation of the motor

@@ -5,10 +5,11 @@ Motor::Motor(int analogPin, int digitalPin, int forwardPin){
     this -> digitalPin = digitalPin;
     this -> IsAnalogForward = forwardPin == analogPin;
 }
-Motor::Motor(){
-    this -> analogPin = -1;
-    this -> digitalPin = -1;
-    this -> IsAnalogForward = -1;
+
+void Motor::setPin(int analogPin, int digitalPin, int forwardPin){
+    this -> analogPin = analogPin;
+    this -> digitalPin = digitalPin;
+    this -> IsAnalogForward = forwardPin == analogPin;
 }
 void Motor::speedControl(int value,bool dir){
     _speed = value;

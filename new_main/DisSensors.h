@@ -25,4 +25,6 @@ public:
 
     void getAllDis();
 };
+
 #endif
+

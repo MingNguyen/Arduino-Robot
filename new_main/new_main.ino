@@ -70,7 +70,7 @@ void setup() {
   myDisSensors.setBR(triPin,echoBR);
   myDisSensors.setBL(triPin,echoBL);
 
-  myLineFollow = LineFollow(IR1, IR2, IR3, IR4, IR5);
+
 }
 
 

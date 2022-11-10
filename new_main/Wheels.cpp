@@ -2,10 +2,6 @@
 #include "Arduino.h"
 
 Wheels::Wheels(){
-    FR = Motor();
-    FL = Motor();
-    BR = Motor();
-    BL = Motor();
 }
 
 
