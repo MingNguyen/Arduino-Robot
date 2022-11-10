@@ -11,11 +11,12 @@ public:
     Motor BR;
     Motor BL;
     Wheels();
+    Wheels(Motor FR,Motor FL,Motor BR,Motor BL);
 
-    void setFR(int analogPin, int digitalPin, int forward);
-    void setFL(int analogPin, int digitalPin, int forward);
-    void setBR(int analogPin, int digitalPin, int forward);
-    void setBL(int analogPin, int digitalPin, int forward);
+    void setFR(int analogPin, int digitalPin);
+    void setFL(int analogPin, int digitalPin);
+    void setBR(int analogPin, int digitalPin);
+    void setBL(int analogPin, int digitalPin);
 
     void controlFR(int value,bool dir);
     void controlFL(int value,bool dir);

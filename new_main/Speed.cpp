@@ -3,11 +3,12 @@
 #include "Arduino.h"
 #include "Wheels.h"
 
-Speed::Speed() {
+Speed::Speed(Wheels myWheels) {
     _FL = Encoder();
     _FR = Encoder();
     _BL = Encoder();
     _BR = Encoder();
+    myWheels = myWheels;
 }
 
 void Speed::setFL(int enPin) {
