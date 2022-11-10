@@ -58,10 +58,10 @@ void setup() {
   pinMode(IR5, INPUT);
 
   myWheels = Wheels();
-  myWheels.setFR(IN1_A,IN2_A,IN2_A);
-  myWheels.setFL(IN4_A,IN3_A,IN3_A);
-  myWheels.setBL(IN2_B,IN1_B,IN2_B);
-  myWheels.setBR(IN3_B,IN4_B,IN3_B);
+  myWheels.setFR(IN1_A,IN2_A);
+  myWheels.setFL(IN4_A,IN3_A);
+  myWheels.setBL(IN2_B,IN1_B);
+  myWheels.setBR(IN3_B,IN4_B);
 
 
   myDisSensors = DisSensors();
@@ -76,14 +76,12 @@ void setup() {
 
 void loop() {
     myWheels.movingForward(130,130,130,130);
-    /**
-     *
     inLine = myLineFollow.inLine();
     myLineFollow.follow(myWheels, 50, 200);
 
     myObsAvoiding = ObsAvoiding(myDisSensors);
     obsPosition = myObsAvoiding.getPos(inLine);
     myObsAvoiding.nextAction(myWheels, obsPosition, 200);
-     * */
+
 
 }

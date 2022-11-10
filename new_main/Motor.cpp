@@ -1,38 +1,24 @@
 #include "Arduino.h"
 #include "Motor.h" 
-Motor::Motor(int analogPin, int digitalPin, int forwardPin){
-    this -> analogPin = analogPin;
-    this -> digitalPin = digitalPin;
-    this -> IsAnalogForward = forwardPin == analogPin;
+Motor::Motor(int forwardPin, int backwardPin){
+    this -> _forwardPin = forwardPin;
+    this -> _backwardPin = backwardPin;
 }
 
-void Motor::setPin(int analogPin, int digitalPin, int forwardPin){
-    this -> analogPin = analogPin;
-    this -> digitalPin = digitalPin;
-    this -> IsAnalogForward = forwardPin == analogPin;
+void Motor::setPin(int forwardPin, int backwardPin){
+    this -> _forwardPin = forwardPin;
+    this -> _backwardPin = backwardPin;
 }
-void Motor::speedControl(int value,bool dir){
-    _speed = value;
+void Motor::control(int value,bool dir){
     _dir = dir;
-    if (IsAnalogForward){
-        analogWrite(analogPin,dir?value:MAX_SPEED-value);
-        analogWrite(digitalPin,dir?value:MAX_SPEED-value);
-    }
-    else{
-        analogWrite(analogPin,dir?MAX_SPEED-value:value);
-        analogWrite(digitalPin,dir);
-    }
+    _speed = value;
+    analogWrite(255*dir,_forwardPin);
+    analogWrite(255*(1-dir),_backwardPin);
 }
 
 
 void Motor::updateSpeed(int alpha) {
     _speed += alpha;
-    if (IsAnalogForward){
-        analogWrite(analogPin,_dir?_speed:MAX_SPEED-_speed);
-        digitalWrite(digitalPin,!_dir);
-    }
-    else{
-        analogWrite(analogPin,_dir?MAX_SPEED-_speed:_speed);
-        digitalWrite(digitalPin,_dir);
-    }
+    analogWrite(255*_dir,_forwardPin);
+    analogWrite(255*(1-_dir),_backwardPin);
 }
