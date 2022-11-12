@@ -23,6 +23,12 @@ int IR3 = 29;
 int IR4 = 31;
 int IR5 = 33;
 
+int EN1 = 18;
+int EN2 = 19;
+int EN3 = 20;
+int EN4 = 21;
+
+
 int encoder1 = 2;
 bool state1 = true;
 int en_value1 = 0;
@@ -36,6 +42,7 @@ Wheels myWheels;
 DisSensors myDisSensors;
 ObsAvoiding myObsAvoiding;
 LineFollow myLineFollow;
+Speed mySpeedControl;
 
 
 void setup() {
@@ -71,14 +78,20 @@ void setup() {
 
   myLineFollow = LineFollow(IR1, IR2, IR3, IR4, IR5);
 
+  mySpeedControl = Speed(myWheels);
+  mySpeedControl.setFL(EN1);
+  mySpeedControl.setFR(EN2);
 
 }
 
 
 void loop() {
+    myWheels.FR.control(150,true);
+    // double speedFR = mySpeedControl._enFR.getSpeed();
+    // mySpeedControl.updateFL(myWheels, speedFR, 0.5);
     // myWheels.movingForward(150,150,150,150);
-    inLine = myLineFollow.inLine();
-    myLineFollow.follow(myWheels, 20, 180);
+    //inLine = myLineFollow.inLine();
+    //myLineFollow.follow(myWheels, 20, 180);
     // myObsAvoiding = ObsAvoiding(myDisSensors);
     // obsPosition = myObsAvoiding.getPos(inLine);
     // myObsAvoiding.nextAction(myWheels, obsPosition, 200);

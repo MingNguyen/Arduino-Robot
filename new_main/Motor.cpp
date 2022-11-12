@@ -14,13 +14,13 @@ void Motor::setPin(int forwardPin, int backwardPin){
 void Motor::control(int value,bool dir){
     _dir = dir;
     _speed = value;
-    analogWrite(_forwardPin,_speed*dir);
-    analogWrite(_backwardPin,_speed*(1-dir));
+    analogWrite(_forwardPin,_speed*_dir);
+    analogWrite(_backwardPin,_speed*(1-_dir));
 }
 
 
 void Motor::updateSpeed(int alpha) {
     _speed += alpha;
-    analogWrite(255*_dir,_forwardPin);
-    analogWrite(255*(1-_dir),_backwardPin);
+    analogWrite(_forwardPin,_speed*_dir);
+    analogWrite(_backwardPin,_speed*(1-_dir));
 }
