@@ -69,15 +69,16 @@ void setup() {
   myDisSensors.setBR(triPin,echoBR);
   myDisSensors.setBL(triPin,echoBL);
 
+  myLineFollow = LineFollow(IR1, IR2, IR3, IR4, IR5);
+
 
 }
 
 
 void loop() {
-    myWheels.movingForward(150,150,150,150);
-    // inLine = myLineFollow.inLine();
-    // myLineFollow.follow(myWheels, 50, 200);
-
+    // myWheels.movingForward(150,150,150,150);
+    inLine = myLineFollow.inLine();
+    myLineFollow.follow(myWheels, 20, 180);
     // myObsAvoiding = ObsAvoiding(myDisSensors);
     // obsPosition = myObsAvoiding.getPos(inLine);
     // myObsAvoiding.nextAction(myWheels, obsPosition, 200);

@@ -1,6 +1,7 @@
 #include "Arduino.h"
 #include "LineFollow.h"
 #include "Wheels.h"
+#include "math.h"
 
 LineFollow::LineFollow() {
     IR1 = -1;
@@ -37,13 +38,19 @@ int LineFollow::linePos() {
     else if ((_s1 == 1)& (_s2 == 0) & (_s3 == 0) & (_s4 == 0) & (_s5 == 0)) {
         return 2;
     }
-    else if ((_s2 == 1) & (_s3 == 0) & (_s4 == 0) & (_s5 == 0)){
+    else if ((_s1 == 1) & (_s2 == 1) & (_s3 == 0) & (_s4 == 0) & (_s5 == 0)){
         return 1;
+    }
+    else if ((_s1 == 0) & (_s2 == 1) & (_s3 == 1) & (_s4 == 0) & (_s5 == 0)){
+        return 0.5;
+    }
+    else if ((_s1 == 0) & (_s2 == 0) & (_s3 == 1) & (_s4 == 1) & (_s5 == 0)){
+        return -0.5;
     }
     else if ((_s1 == 0 )& (_s2 == 0) & (_s3 == 0) & (_s4 == 0)&(_s5 == 1)){
         return -2;
     }
-    else if ((_s1 == 0) & (_s2 == 0) & (_s3 == 0) & (_s4 == 1)){
+    else if ((_s1 == 0) & (_s2 == 0) & (_s3 == 0) & (_s4 == 1)&(_s5 == 1)){
         return -1;
     }
     else if ((_s1 == 0) & (_s2 == 1) & (_s3 == 1) & (_s4 == 1) & (_s5 == 0)){
@@ -59,18 +66,22 @@ int LineFollow::PID() {
 }
 
 void LineFollow::follow(Wheels myWheels, int kp, int speed) {
-    int error = linePos();
-    int delta = error * kp ;
-    int speed_r = speed + delta;
-    int speed_l = speed - delta;
+    int error = LineFollow::linePos();
+    int delta = abs(error * kp) ;
+    int speed_r = speed + (1-2*signbit(error))*delta;
+    int speed_l = speed - (1-2*signbit(error))*delta;
 
-    if (speed_r>255) speed_r = 255;
-    if (speed_l>255) speed_l =255;
+    if (speed_r>200) speed_r = 200;
+    if (speed_l>200) speed_l =200;
     if (speed_r<0) speed_r = 0;
     if (speed_l<0) speed_l = 0;
 
     if(error == 0){
         myWheels.movingForward(speed, speed, speed, speed);
+    }else if (error == 0.5){
+        myWheels.movingForward(speed_r, speed_l-kp*2/3, speed_r, speed_l-kp*2/3);
+    }else if (error == -0.5){
+        myWheels.movingForward(speed_r-kp*2/3, speed_l, speed_r-kp*2/3, speed_l);
     }else if (error == 1){
         myWheels.turnLeft(speed_r, speed_l, speed_r, speed_l);
     }else if (error == 2){
@@ -79,6 +90,8 @@ void LineFollow::follow(Wheels myWheels, int kp, int speed) {
         myWheels.turnRight(speed_r, speed_l, speed_r, speed_l);
     }else if (error == -2){
         myWheels.turnRight(speed_r, speed_l, speed_r, speed_l);
+    }else if (error == 10){
+        myWheels.stop();
     }
     else{}
 }
