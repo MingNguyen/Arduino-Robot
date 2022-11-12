@@ -1,9 +1,11 @@
 #include "Arduino.h"
 #include "ObsAvoiding.h"
-
-ObsAvoiding::ObsAvoiding() {}
-
+ObsAvoiding::ObsAvoiding(){
+}
 ObsAvoiding::ObsAvoiding(DisSensors myDisSensors){
+    this -> _myDisSensors = myDisSensors;
+}
+void ObsAvoiding::setDisSenSors(DisSensors myDisSensors){
     this -> _myDisSensors = myDisSensors;
 }
 int ObsAvoiding::getPos( bool line_detect) {

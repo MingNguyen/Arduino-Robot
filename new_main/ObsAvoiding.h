@@ -23,9 +23,9 @@ public:
      * @param dis: distance
      * @param line_detect: check car in line or not
      * */
-
     ObsAvoiding();
     ObsAvoiding(DisSensors myDisSensors);
+    void setDisSenSors(DisSensors myDisSensors);
     int _position = 0;
     int getPos(bool line_detect);
     void nextAction(Wheels myWheels, int position, int speed);
