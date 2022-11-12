@@ -30,9 +30,6 @@ int triPin = -1;
 int echoFR = -2, echoFL =-3, echoBR = -4, echoBL = -5;
 int s1;
 
-bool inLine = true;
-int obsPosition = 0;
-
 Wheels myWheels;
 DisSensors myDisSensors;
 ObsAvoiding myObsAvoiding;
@@ -58,10 +55,17 @@ void setup() {
   pinMode(IR5, INPUT);
 
   myWheels = Wheels();
+<<<<<<< HEAD
   myWheels.setFR(IN1_A,IN2_A);
   myWheels.setFL(IN4_A,IN3_A);
   myWheels.setBL(IN2_B,IN1_B);
   myWheels.setBR(IN3_B,IN4_B);
+=======
+  myWheels.setFR(IN1_A,IN2_A,IN2_A);
+  myWheels.setFL(IN4_A,IN3_A,IN4_A);
+  myWheels.setBL(IN2_B,IN1_B,IN2_B);
+  myWheels.setBR(IN3_B,IN4_B,IN4_B);
+>>>>>>> parent of 58b14f2 (line_follow)
 
 
   myDisSensors = DisSensors();
@@ -71,10 +75,26 @@ void setup() {
   myDisSensors.setBL(triPin,echoBL);
 
 
+<<<<<<< HEAD
+=======
+
+  myLineFollow = LineFollow(IR1, IR2, IR3, IR4, IR5);
+  bool inLine = myLineFollow.inLine();
+  myLineFollow.follow(myWheels, 50, 200);
+
+  myObsAvoiding = ObsAvoiding(myDisSensors);
+  int obsPosition = myObsAvoiding.getPos(inLine);
+  myObsAvoiding.nextAction(myWheels, obsPosition, 255);
+
+
+
+
+>>>>>>> parent of 58b14f2 (line_follow)
 }
 
 
 void loop() {
+<<<<<<< HEAD
     myWheels.movingForward(130,130,130,130);
     inLine = myLineFollow.inLine();
     myLineFollow.follow(myWheels, 50, 200);
@@ -84,4 +104,7 @@ void loop() {
     myObsAvoiding.nextAction(myWheels, obsPosition, 200);
 
 
+=======
+  myWheels.movingBackward(200,200,200,200);
+>>>>>>> parent of 58b14f2 (line_follow)
 }
