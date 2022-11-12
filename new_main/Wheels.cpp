@@ -74,3 +74,10 @@ void Wheels::turnRight(int valueFR, int valueFL, int valueBR, int valueBL){
     BR.control(valueBR, false);
     BL.control(valueBL,true);
 }
+
+void Wheels::stop(){
+    FR.control(0, true);
+    FL.control(0, true);
+    BR.control(0, true);
+    BL.control(0, true);
+}

@@ -30,6 +30,7 @@ public:
     void movingRight(int valueFR, int valueFL, int valueBR, int valueBL);
     void turnLeft(int valueFR, int valueFL, int valueBR, int valueBL);
     void turnRight(int valueFR, int valueFL, int valueBR, int valueBL);
+    void stop();
 };
 
 #endif
