@@ -31,6 +31,18 @@ void DisSensors::getAllDis() {
     disBL = _BL.distance(now);
 }
 
+void DisSensors::printDis(){
+    DisSensors::getAllDis();
+    Serial.print("FL: ");
+    Serial.println(disFL);
+    Serial.print("FR: ");
+    Serial.println(disFR);
+    Serial.print("BL: ");
+    Serial.println(disBL);
+    Serial.print("BR: ");
+    Serial.println(disBR);
+}
+
 
 
 

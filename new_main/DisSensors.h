@@ -25,6 +25,7 @@ public:
     int setBL(int trigPin, int echoPin);
 
     void getAllDis();
+    void printDis();
 };
 
 #endif

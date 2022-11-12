@@ -35,7 +35,7 @@ public:
     void setFR(int enPin);
     void setBL(int enPin);
     void setBR(int enPin);
-    void updateDeltaSpeed();
+
 
     void updateMotorSpeed(Wheels myWheels, double set_speed, int alpha);
 

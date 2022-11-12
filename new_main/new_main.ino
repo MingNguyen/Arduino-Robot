@@ -32,8 +32,8 @@ int EN4 = 21;
 int encoder1 = 2;
 bool state1 = true;
 int en_value1 = 0;
-int triPin = -1;
-int echoFR = -2, echoFL =-3, echoBR = -4, echoBL = -5;
+int triPin = 12;
+int echoFL = A0, echoFR = A1, echoBL = A2, echoBR = A3;
 int s1;
 bool inLine;
 int obsPosition;
@@ -86,15 +86,14 @@ void setup() {
 
 
 void loop() {
-    myWheels.FR.control(150,true);
-    // double speedFR = mySpeedControl._enFR.getSpeed();
-    // mySpeedControl.updateFL(myWheels, speedFR, 0.5);
+    //myWheels.movingForward(200,200,200,200);
+    //mySpeedControl.updateMotorSpeed(myWheels, 150, 0.5);
     // myWheels.movingForward(150,150,150,150);
     //inLine = myLineFollow.inLine();
     //myLineFollow.follow(myWheels, 20, 180);
     // myObsAvoiding = ObsAvoiding(myDisSensors);
     // obsPosition = myObsAvoiding.getPos(inLine);
     // myObsAvoiding.nextAction(myWheels, obsPosition, 200);
-
+    myDisSensors.printDis();
 
 }

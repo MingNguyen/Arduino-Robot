@@ -49,6 +49,7 @@ int Ultrasonic::distance(int now)
 
 void Ultrasonic::print_distance()
 {
+  Ultrasonic::distance(millis());
   Serial.print("Distance: ");
   Serial.print(_distance);
   Serial.println(" cm");
