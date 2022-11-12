@@ -1,4 +1,3 @@
-#ifndef DisSensors_h
 #define DisSensors_h
 
 #include "Arduino.h"
@@ -8,6 +7,7 @@ class DisSensors{
 private:
     int trigPin;
     int echoPin_FR, echoPin_FL, echoPin_BR, echoPin_BL;
+
 
 public:
     Ultrasonic _FR;
@@ -24,5 +24,11 @@ public:
     int setBL(int trigPin, int echoPin);
 
     void getAllDis();
+<<<<<<< HEAD
 };
+
 #endif
+
+=======
+};
+>>>>>>> parent of 58b14f2 (line_follow)
