@@ -5,13 +5,13 @@ class Encoder{
 private:
     int rpm;
     int _enPin;
-    int _counter;
+    static int _counter;
     int _previousMillis;
 public:
     Encoder();
     Encoder(int enPin);
 
-    void countPulse();
+    static void countPulse();
     int getSpeed();
 };
 

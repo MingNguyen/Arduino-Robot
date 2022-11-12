@@ -10,11 +10,11 @@ Encoder::Encoder(int enPin) {
     this ->_enPin= enPin;
     this -> _previousMillis = millis();
     pinMode(enPin, INPUT_PULLUP);
-    attachInterrupt(digitalPinToInterrupt(enPin), Encoder::countPulse(), RISING);
+    attachInterrupt(digitalPinToInterrupt(enPin), Encoder::countPulse, RISING);
 }
 
 void Encoder::countPulse() {
-    this -> _counter++;
+    _counter++;
 }
 
 int Encoder::getSpeed() {

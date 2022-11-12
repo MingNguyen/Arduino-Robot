@@ -1,3 +1,4 @@
+#ifndef DisSensors_h
 #define DisSensors_h
 
 #include "Arduino.h"
@@ -24,11 +25,7 @@ public:
     int setBL(int trigPin, int echoPin);
 
     void getAllDis();
-<<<<<<< HEAD
 };
 
 #endif
 
-=======
-};
->>>>>>> parent of 58b14f2 (line_follow)
