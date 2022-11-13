@@ -36,6 +36,7 @@ public:
      * @param alpha: learning step speed = speed +/- alpha
      */
     void updateSpeed(int alpha);
+    int getSpeed();
 };
 
 #endif

@@ -7,12 +7,13 @@
 class Speed{
 private:
     int _pulseFL, _pulseFR, _pulseBL, _pulseBR;
-    static int _previousMicros[4]; //FL FR BL BR
+    static unsigned long _previousMicros[4]; //FL FR BL BR
 
-    static int _newMicros[4];
+    static unsigned long _newMicros[4];
 
-    unsigned long deltaList[4];
+    double deltaList[4];
     double speedList[4];
+    double eIntegral[4];
 
     Wheels myWheels;
 
@@ -29,14 +30,18 @@ public:
     Encoder _enBL;
     Encoder _enBR;
     Speed();
-    Speed(Wheels myWheels);
+    Speed(Wheels &myWheels);
 
     void setFL(int enPin);
     void setFR(int enPin);
     void setBL(int enPin);
     void setBR(int enPin);
-
-
+    
+    void activateMotor(bool a, bool b, bool c,bool d);
+    void updateSpeedFR(double set_speed, double alpha);
+    void updateSpeedFL(double set_speed, double alpha);
+    void updateSpeedBR(double set_speed, double alpha);
+    void updateSpeedBL(double set_speed, double alpha);
     void updateMotorSpeed(Wheels myWheels, double set_speed, int alpha);
 
 
