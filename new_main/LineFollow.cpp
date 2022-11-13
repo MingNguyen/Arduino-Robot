@@ -90,7 +90,7 @@ double LineFollow::linePID(int kp,double ki, int kd) {
 }
 
 
-void LineFollow::follow(Wheels myWheels, int kp,double ki, int kd, int speed) {
+void LineFollow::follow(Wheels &myWheels, int kp,double ki, int kd, int speed) {
     // int PID = linePID(kp,ki,kd);
     // previousError = error;
     // error = linePos();

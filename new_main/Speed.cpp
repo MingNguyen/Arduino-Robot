@@ -10,7 +10,7 @@ Speed::Speed(Wheels& myWheels) {
     _enFL = Encoder();
     _enBR = Encoder();
     _enBL = Encoder();
-    myWheels =myWheels;
+    this ->myWheels =myWheels;
 }
 unsigned long Speed::_previousMicros[4];
 unsigned long Speed::_newMicros[4];
@@ -35,7 +35,7 @@ void Speed::setBR(int enPin) {
     attachInterrupt(digitalPinToInterrupt(enPin), Speed::countPulseBR, RISING);
 }
 
-void Speed  ::activateMotor(bool a, bool b, bool c,bool d){
+void Speed ::activateMotor(bool a, bool b, bool c,bool d){
     
 }
 
