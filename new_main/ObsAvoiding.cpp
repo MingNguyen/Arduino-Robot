@@ -26,7 +26,7 @@ void ObsAvoiding::getDistance() {
 bool ObsAvoiding::objAhead() {
     // if object ahead the car return true
     _myDisSensors.detect_obj();
-    if(_myDisSensors._objFR or _myDisSensors._objFL){
+    if(_myDisSensors.objFR or _myDisSensors.objFL){
         this -> _finish = false;
         return true;
     } else{
@@ -36,7 +36,7 @@ bool ObsAvoiding::objAhead() {
 
 bool ObsAvoiding::objSide() {
     _myDisSensors.detect_obj();
-    if(_myDisSensors._objBR or _myDisSensors._objBL){
+    if(_myDisSensors.objBR or _myDisSensors.objBL){
         return true;
     } else{
         return false;
@@ -55,9 +55,9 @@ int ObsAvoiding::getPos(bool line_detect) {
      * 2  -> when all dis infinity, out line detect, used to move right -> move left to comeback line
      * 9  -> finish task
      * */
-
+     
      //set min dis to start avoid obj
-     int min_front = 10;
+     int min_front = 20;
 
      /**
      if(line_detect and ObsAvoiding::objAhead()){
@@ -97,8 +97,8 @@ int ObsAvoiding::getPos(bool line_detect) {
       *
       * */
 
-     int check_time = 5;
-
+     int check_time = 3;
+    _myDisSensors.getAllDis();
     switch (_position) {
         case 0:
             //first step
@@ -113,16 +113,15 @@ int ObsAvoiding::getPos(bool line_detect) {
                 }
             } else if(!line_detect and ObsAvoiding::objAhead()){
                 _temp++;
-                if(_temp == check_time){
+                if(_temp > check_time){
                     _position = 1;
                     _temp = 0;
                 }
                 return _last_pos;
-            } else if(line_detect and !ObsAvoiding::objAhead()){
-                _finish = true;
-                return 9;
-            } else{
-                return 9;
+            } else {
+              if(_last_pos != 0)
+                return _last_pos;
+              else return 9;
             }
 
         case 1:
@@ -130,7 +129,7 @@ int ObsAvoiding::getPos(bool line_detect) {
                 return _last_pos;
             }else{
                 _temp++;
-                if(_temp == check_time) {
+                if(_temp > check_time) {
                     _position = 2;
                     _temp = 0;
                 }
@@ -141,7 +140,7 @@ int ObsAvoiding::getPos(bool line_detect) {
                 return 0;
             } else{
                 _temp++;
-                if(_temp == check_time) {
+                if(_temp > check_time) {
                     _position = 3;
                     _temp = 0;
                 }
@@ -156,15 +155,15 @@ int ObsAvoiding::getPos(bool line_detect) {
                     _position = 4;
                     _temp = 0;
                 }
-                _last_pos = _last_pos*2;
-                return _last_pos;
+                
+                return _last_pos*2;
             }
         case 4:
             if(!line_detect){
                 return _last_pos;
             } else{
                 _temp++;
-                if(_temp == check_time) {
+                if(_temp > check_time) {
                     _position = 0;
                     _temp = 0;
                 }
@@ -221,4 +220,3 @@ void ObsAvoiding::nextAction(Wheels myWheels, int position, int speed) {
             break;
     }
 }
-

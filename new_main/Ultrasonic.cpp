@@ -34,7 +34,7 @@ int Ultrasonic::distance(int now)
   // trigPin on
   digitalWrite(_trigPin, HIGH);
 
-  if (now - _start >= 10){
+  if (now - _start >= 5){
       // trigPin off
       digitalWrite(_trigPin, LOW);
 
@@ -50,28 +50,32 @@ int Ultrasonic::distance(int now)
 }
 
 int Ultrasonic::average_dis() {
+    int alpha = 0.5;
     int now_dis = Ultrasonic::distance(millis());
-    if(now_dis > 20 or now_dis < 3){
-        //if out range or infinity
-        now_dis = 30;
-        this -> _average_dis += 0.1*(now_dis - this -> _average_dis);
-        return this->_average_dis;
-    }
-    else{
-        if(this->_average_dis == -1){
-            this -> _average_dis = now_dis;
-            return this -> _average_dis;
-        }else{
-            this -> _average_dis += 0.1*(now_dis - this -> _average_dis);
-            return this -> _average_dis;
-        }
-    }
+    if(now_dis != -1){
+      if(now_dis > 20 or now_dis < 3){
+          //if out range or infinity
+          now_dis = 100;
+          this -> _average_dis += alpha*(now_dis - this -> _average_dis);
+          return this->_average_dis;
+      }
+      else{
+          if(this->_average_dis == -1){
+              this -> _average_dis = now_dis;
+              return this -> _average_dis;
+          }else{
+              this -> _average_dis += alpha*(now_dis - this -> _average_dis);
+              return this -> _average_dis;
+          }
+      }
+   }
+   return  this -> _average_dis;
 }
 
 bool Ultrasonic::detect_obj() {
     int average = Ultrasonic::average_dis();
     // detect object, distance from[3:10]
-    if(average < 10 and average > 3){
+    if(average < 15 and average > 1){
         return true;
     } else{
         return false;

@@ -2,10 +2,11 @@
 #include "DisSensors.h"
 
 DisSensors::DisSensors() {
-    _objFL = false;
-    _objFR = false;
-    _objBL = false;
-    _objBR = false;
+    objFL = false;
+    objFR = false;
+    objBL = false;
+    objBR = false;
+    temp = 0;
 }
 
 int DisSensors::setFL(int trigPin, int echoPin) {
@@ -29,29 +30,62 @@ int DisSensors::setBR(int trigPin, int echoPin) {
 }
 
 void DisSensors::getAllDis() {
-    _disFR = _FR.average_dis();
-    _disFL = _FL.average_dis();
-    _disBR = _BR.average_dis();
-    _disBL = _BL.average_dis();
+  switch (temp){
+    case 0:
+      if(_FR.average_dis() != -1){
+        _disFR = _FR.average_dis();
+        temp = 1;
+      }
+      else{
+        break;
+      }
+
+    case 1:
+      if(_FL.average_dis() != -1){
+        _disFL = _FL.average_dis();
+        temp = 2;
+      }
+      else{
+        break;
+      }
+
+    case 2:
+      if(_BL.average_dis() != -1){
+        _disBL = _BL.average_dis();
+        temp = 3;
+      }
+      else{
+        break;
+      }
+
+    case 3:
+      if(_BR.average_dis() != -1){
+        _disBR = _BR.average_dis();
+        temp = 0;
+      }
+      else{
+        break;
+      }
+  }
 }
 
 void DisSensors::detect_obj() {
     DisSensors::getAllDis();
     if(_FR.detect_obj()){
-        _objFL = true;
-    } else _objFL = false;
+        objFL = true;
+    } else objFL = false;
 
     if(_FL.detect_obj()){
-        _objFR = true;
-    } else _objFR = false;
+        objFR = true;
+    } else objFR = false;
 
     if(_BR.detect_obj()){
-        _objBL = true;
-    } else _objBL = false;
+        objBL = true;
+    } else objBL = false;
 
     if(_BL.detect_obj()){
-        _objBR = true;
-    } else _objBR = false;
+        objBR = true;
+    } else objBR = false;
 }
 
 void DisSensors::printDis(){
@@ -65,7 +99,3 @@ void DisSensors::printDis(){
     Serial.print("BR: ");
     Serial.println(_disBR);
 }
-
-
-
-

@@ -82,6 +82,8 @@ void setup() {
   mySpeedControl.setFL(EN1);
   mySpeedControl.setFR(EN2);
 
+  myObsAvoiding = ObsAvoiding(myDisSensors);
+
 }
 
 
@@ -89,11 +91,19 @@ void loop() {
     //myWheels.movingForward(200,200,200,200);
     //mySpeedControl.updateMotorSpeed(myWheels, 150, 0.5);
     // myWheels.movingForward(150,150,150,150);
-    //inLine = myLineFollow.inLine();
+    inLine = myLineFollow.inLine();
     //myLineFollow.follow(myWheels, 20, 180);
-    // myObsAvoiding = ObsAvoiding(myDisSensors);
-    // obsPosition = myObsAvoiding.getPos(inLine);
-    // myObsAvoiding.nextAction(myWheels, obsPosition, 200);
+    obsPosition = myObsAvoiding.getPos(inLine);
+    Serial.print("Obj Position: ");
+    Serial.println(obsPosition);
+    
+    Serial.print("Position Case: ");
+    Serial.println(myObsAvoiding._position);
+    
+    Serial.print("last pos: ");
+    Serial.println(myObsAvoiding._last_pos);
+    Serial.println();
+    //myObsAvoiding.nextAction(myWheels, obsPosition, 120);
     myDisSensors.printDis();
 
 }

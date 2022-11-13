@@ -7,10 +7,10 @@ private:
     /**
      * @param _last_pos: last position of car and object
      * */
-    int _last_pos;
+    
     bool _finish;
     int _disFL, _disFR, _disBL, _disBR;
-    int _position;
+    
     int _temp;
     DisSensors _myDisSensors;
 public:
@@ -27,6 +27,9 @@ public:
      * @param dis: distance
      * @param line_detect: check car in line or not
      * */
+
+    int _position;
+    int _last_pos;
     ObsAvoiding();
     ObsAvoiding(DisSensors myDisSensors);
     void getDistance();
@@ -37,4 +40,3 @@ public:
     void nextAction(Wheels myWheels, int position, int speed);
 
 };
-

@@ -8,6 +8,7 @@ class DisSensors{
 private:
     int trigPin;
     int echoPin_FR, echoPin_FL, echoPin_BR, echoPin_BL;
+    int temp;
 
 
 public:
@@ -17,7 +18,7 @@ public:
     Ultrasonic _BL;
 
     int _disFL, _disFR, _disBL, _disBR;
-    bool _objFL, _objFR, _objBL, _objBR;
+    bool objFL, objFR, objBL, objBR;
 
     DisSensors();
     int setFR(int trigPin, int echoPin);
@@ -31,4 +32,3 @@ public:
 };
 
 #endif
-
