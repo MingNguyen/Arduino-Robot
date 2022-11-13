@@ -9,6 +9,7 @@ private:
     int trigPin;
     int echoPin_FR, echoPin_FL, echoPin_BR, echoPin_BL;
     int temp;
+    int start;
 
 
 public:
@@ -27,6 +28,7 @@ public:
     int setBL(int trigPin, int echoPin);
 
     void getAllDis();
+    void getAllDis4();
     void detect_obj();
     void printDis();
 };
