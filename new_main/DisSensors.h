@@ -9,7 +9,7 @@ private:
     int trigPin;
     int echoPin_FR, echoPin_FL, echoPin_BR, echoPin_BL;
     int temp;
-    int start;
+    int _start;
 
 
 public:

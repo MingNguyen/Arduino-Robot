@@ -40,9 +40,9 @@ void DisSensors::getAllDis4() {
             break;
         case 2:
 
-            if (millis()-start >= timer){
+            if (millis()-_start >= timer){
                 digitalWrite(trigPin, LOW);
-                start = millis();
+                _start = millis();
                 _disFL = pulseIn(echoPin_FL, HIGH) * 0.034 /2;
                 temp = 3;
             }
@@ -54,9 +54,9 @@ void DisSensors::getAllDis4() {
             temp=4;
             break;
         case 4:
-            if (millis()-start >= timer){
+            if (millis()-_start >= timer){
                 digitalWrite(trigPin, LOW);
-                start = millis();
+                _start = millis();
                 _disFR = pulseIn(echoPin_FR, HIGH) * 0.034 /2;
                 temp = 5;
             }
@@ -68,9 +68,9 @@ void DisSensors::getAllDis4() {
             temp=6;
             break;
         case 6:
-            if (millis()-start >= timer){
+            if (millis()-_start >= timer){
                 digitalWrite(trigPin, LOW);
-                start = millis();
+                _start = millis();
                 _disBL = pulseIn(echoPin_BL, HIGH) * 0.034 /2;
                 temp = 7;
             }
@@ -82,9 +82,9 @@ void DisSensors::getAllDis4() {
             temp = 8;
             break;
         case 8:
-            if (millis()-start >= timer){
+            if (millis()-_start >= timer){
                 digitalWrite(trigPin, LOW);
-                start = millis();
+                _start = millis();
                 _disBR = pulseIn(echoPin_BR, HIGH) * 0.034 /2;
                 temp = 1;
             }
