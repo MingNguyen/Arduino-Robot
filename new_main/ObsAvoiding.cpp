@@ -3,12 +3,14 @@
 ObsAvoiding::ObsAvoiding(){
     _position = 0;
     _last_pos = 0;
+    _temp = 0;
     _finish = true;
 }
 ObsAvoiding::ObsAvoiding(DisSensors myDisSensors){
     this -> _myDisSensors = myDisSensors;
     _position = 0;
     _last_pos = 0;
+    _temp = 0;
     _finish = true;
 }
 
@@ -51,11 +53,13 @@ int ObsAvoiding::getPos(bool line_detect) {
      * 0  -> when disFR infinity, disFL infinity, disBR or disBL <= 10 -> go forward
      * 1  -> when disFR infinity, disFL <=10     -> object before + left side  -> move right to avoid object
      * 2  -> when all dis infinity, out line detect, used to move right -> move left to comeback line
+     * 9  -> finish task
      * */
 
      //set min dis to start avoid obj
      int min_front = 10;
 
+     /**
      if(line_detect and ObsAvoiding::objAhead()){
          //if in line and object ahead
          if(_disFL < min_front){
@@ -86,6 +90,91 @@ int ObsAvoiding::getPos(bool line_detect) {
         return 0;
     }
     return 0;
+      */
+
+     /**
+      * Have total 7 steps for robot to overcome object.
+      *
+      * */
+
+     int check_time = 5;
+
+    switch (_position) {
+        case 0:
+            //first step
+            if(line_detect and ObsAvoiding::objAhead()){
+                //if in line and object ahead
+                if(_disFL < min_front){
+                    _last_pos = 1;
+                    return 1;
+                } else{
+                    _last_pos = -1;
+                    return -1;
+                }
+            } else if(!line_detect and ObsAvoiding::objAhead()){
+                _temp++;
+                if(_temp == check_time){
+                    _position = 1;
+                    _temp = 0;
+                }
+                return _last_pos;
+            } else if(line_detect and !ObsAvoiding::objAhead()){
+                _finish = true;
+                return 9;
+            } else{
+                return 9;
+            }
+
+        case 1:
+            if(ObsAvoiding::objAhead()){
+                return _last_pos;
+            }else{
+                _temp++;
+                if(_temp == check_time) {
+                    _position = 2;
+                    _temp = 0;
+                }
+                return _last_pos;
+            }
+        case 2:
+            if(!ObsAvoiding::objSide()){
+                return 0;
+            } else{
+                _temp++;
+                if(_temp == check_time) {
+                    _position = 3;
+                    _temp = 0;
+                }
+                return 0;
+            }
+        case 3:
+            if(ObsAvoiding::objSide()){
+                return 0;
+            } else{
+                _temp++;
+                if(_temp == check_time) {
+                    _position = 4;
+                    _temp = 0;
+                }
+                _last_pos = _last_pos*2;
+                return _last_pos;
+            }
+        case 4:
+            if(!line_detect){
+                return _last_pos;
+            } else{
+                _temp++;
+                if(_temp == check_time) {
+                    _position = 0;
+                    _temp = 0;
+                }
+                _last_pos = 0;
+                _finish = true;
+                return 9;
+            }
+    }
+
+
 
 }
 
@@ -107,6 +196,9 @@ void ObsAvoiding::nextAction(Wheels myWheels, int position, int speed) {
      * */
 
     switch (position) {
+        case 9:
+            //finish task
+            myWheels.stop();
         case 0:
             // go forward
             myWheels.movingForward(speed,speed,speed,speed);

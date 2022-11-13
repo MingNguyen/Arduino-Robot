@@ -37,19 +37,19 @@ void DisSensors::getAllDis() {
 
 void DisSensors::detect_obj() {
     DisSensors::getAllDis();
-    if(_disFL < 10){
+    if(_FR.detect_obj()){
         objFL = true;
     } else objFL = false;
 
-    if(_disFR < 10){
+    if(_FL.detect_obj()){
         objFR = true;
     } else objFR = false;
 
-    if(_disBL < 10){
+    if(_BR.detect_obj()){
         objBL = true;
     } else objBL = false;
 
-    if(_disBR < 10){
+    if(_BL.detect_obj()){
         objBR = true;
     } else objBR = false;
 }

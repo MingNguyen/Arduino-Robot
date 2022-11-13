@@ -51,8 +51,10 @@ int Ultrasonic::distance(int now)
 
 int Ultrasonic::average_dis() {
     int now_dis = Ultrasonic::distance(millis());
-    if(now_dis > 20){
-        this -> _average_dis += 0.1*(30 - this -> _average_dis);
+    if(now_dis > 20 or now_dis < 3){
+        //if out range or infinity
+        now_dis = 30;
+        this -> _average_dis += 0.1*(now_dis - this -> _average_dis);
         return this->_average_dis;
     }
     else{
@@ -68,7 +70,8 @@ int Ultrasonic::average_dis() {
 
 bool Ultrasonic::detect_obj() {
     int average = Ultrasonic::average_dis();
-    if(average<10){
+    // detect object, distance from[3:10]
+    if(average < 10 and average > 3){
         return true;
     } else{
         return false;

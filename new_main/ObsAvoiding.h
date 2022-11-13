@@ -11,6 +11,7 @@ private:
     bool _finish;
     int _disFL, _disFR, _disBL, _disBR;
     int _position;
+    int _temp;
     DisSensors _myDisSensors;
 public:
     /**
@@ -21,6 +22,7 @@ public:
      * 0  -> when disFR infinity, disFL infinity, disBR or disBL <= 10 -> go forward
      * 1  -> when disFR infinity, disFL <=10     ->  move right to avoid object
      * 2  -> when all dis infinity, out line detect, used to move right -> move left to comeback line
+     * 9  -> finish task
      *
      * @param dis: distance
      * @param line_detect: check car in line or not
