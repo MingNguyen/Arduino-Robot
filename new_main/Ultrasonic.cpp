@@ -52,6 +52,7 @@ int Ultrasonic::distance(int now)
 int Ultrasonic::average_dis() {
     int now_dis = Ultrasonic::distance(millis());
     if(now_dis > 20){
+        this -> _average_dis += 0.1*(30 - this -> _average_dis);
         return this->_average_dis;
     }
     else{
