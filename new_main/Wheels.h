@@ -11,7 +11,7 @@ public:
     Motor BR;
     Motor BL;
     Wheels();
-    Wheels(Motor FR,Motor FL,Motor BR,Motor BL);
+    Wheels(Motor &FR,Motor &FL,Motor &BR,Motor &BL);
 
     void setFR(int analogPin, int digitalPin);
     void setFL(int analogPin, int digitalPin);

@@ -3,7 +3,7 @@
 
 Wheels::Wheels(){
 }
-Wheels::Wheels(Motor FR,Motor FL,Motor BR,Motor BL){
+Wheels::Wheels(Motor &FR,Motor &FL,Motor &BR,Motor &BL){
     this -> FR = FR;
     this -> FL = FL;
     this -> BR = BR;

@@ -9,9 +9,9 @@ public:
     LineFollow();
     LineFollow(int IR1, int IR2, int IR3, int IR4, int IR5);
 
-    int linePos();
-    int PID();
-    void follow(Wheels myWheels, int kp, int speed);
+    double linePos();
+    double linePID(int kp,double ki, int kd);
+    void follow(Wheels &myWheels, int kp,double ki, int kd, int speed);
     bool inLine();
-
+    bool endLine();
 };

@@ -84,11 +84,13 @@ void setup() {
 
   myObsAvoiding = ObsAvoiding(myDisSensors);
 
+
 }
 
 
 void loop() {
     //myWheels.movingForward(200,200,200,200);
+    //Serial.print("abc");
     //mySpeedControl.updateMotorSpeed(myWheels, 150, 0.5);
     // myWheels.movingForward(150,150,150,150);
     inLine = myLineFollow.inLine();
@@ -105,5 +107,8 @@ void loop() {
     Serial.println();
     //myObsAvoiding.nextAction(myWheels, obsPosition, 120);
     myDisSensors.printDis();
+
+    
+
 
 }
