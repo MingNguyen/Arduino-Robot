@@ -26,7 +26,7 @@ void ObsAvoiding::getDistance() {
 bool ObsAvoiding::objAhead() {
     // if object ahead the car return true
     _myDisSensors.detect_obj();
-    if(_myDisSensors.objFR or _myDisSensors.objFL){
+    if(_myDisSensors._objFR or _myDisSensors._objFL){
         this -> _finish = false;
         return true;
     } else{
@@ -36,7 +36,7 @@ bool ObsAvoiding::objAhead() {
 
 bool ObsAvoiding::objSide() {
     _myDisSensors.detect_obj();
-    if(_myDisSensors.objBR or _myDisSensors.objBL){
+    if(_myDisSensors._objBR or _myDisSensors._objBL){
         return true;
     } else{
         return false;

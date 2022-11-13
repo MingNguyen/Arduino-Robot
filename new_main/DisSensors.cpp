@@ -2,10 +2,10 @@
 #include "DisSensors.h"
 
 DisSensors::DisSensors() {
-    objFL = false;
-    objFR = false;
-    objBL = false;
-    objBR = false;
+    _objFL = false;
+    _objFR = false;
+    _objBL = false;
+    _objBR = false;
 }
 
 int DisSensors::setFL(int trigPin, int echoPin) {
@@ -38,20 +38,20 @@ void DisSensors::getAllDis() {
 void DisSensors::detect_obj() {
     DisSensors::getAllDis();
     if(_FR.detect_obj()){
-        objFL = true;
-    } else objFL = false;
+        _objFL = true;
+    } else _objFL = false;
 
     if(_FL.detect_obj()){
-        objFR = true;
-    } else objFR = false;
+        _objFR = true;
+    } else _objFR = false;
 
     if(_BR.detect_obj()){
-        objBL = true;
-    } else objBL = false;
+        _objBL = true;
+    } else _objBL = false;
 
     if(_BL.detect_obj()){
-        objBR = true;
-    } else objBR = false;
+        _objBR = true;
+    } else _objBR = false;
 }
 
 void DisSensors::printDis(){

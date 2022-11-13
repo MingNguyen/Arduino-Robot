@@ -17,7 +17,7 @@ public:
     Ultrasonic _BL;
 
     int _disFL, _disFR, _disBL, _disBR;
-    bool objFL, objFR, objBL, objBR;
+    bool _objFL, _objFR, _objBL, _objBR;
 
     DisSensors();
     int setFR(int trigPin, int echoPin);
