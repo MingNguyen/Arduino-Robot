@@ -97,7 +97,7 @@ int ObsAvoiding::getPos(bool line_detect) {
       *
       * */
 
-     int check_time = 3;
+     int check_time = 2;
     _myDisSensors.getAllDis();
     switch (_position) {
         case 0:

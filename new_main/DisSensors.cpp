@@ -79,7 +79,7 @@ void DisSensors::getAllDis4() {
         // back right
         case 7:
             digitalWrite(trigPin, HIGH);
-            temp=8;
+            temp = 8;
             break;
         case 8:
             if (millis()-start >= timer){
