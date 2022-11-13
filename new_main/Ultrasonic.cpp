@@ -5,6 +5,7 @@ Ultrasonic::Ultrasonic() {
     this ->_start = millis();
     this -> _trigPin = -1;
     this -> _echoPin = -1;
+    this -> _average_dis = -1;
 }
 
 Ultrasonic::Ultrasonic(int trigPin, int echoPin)
@@ -14,6 +15,7 @@ Ultrasonic::Ultrasonic(int trigPin, int echoPin)
   _start = millis();
   _trigPin = trigPin;
   _echoPin = echoPin;
+  _average_dis = -1;
 }
 
 int Ultrasonic::getStartTime() {
@@ -32,12 +34,12 @@ int Ultrasonic::distance(int now)
   // trigPin on
   digitalWrite(_trigPin, HIGH);
 
-  if (now - _start >= 50){
+  if (now - _start >= 10){
       // trigPin off
       digitalWrite(_trigPin, LOW);
 
       // calculate distance
-      distance = pulseIn(_echoPin, HIGH) * 0.034 /2;
+      distance = (pulseIn(_echoPin, HIGH) /2) /29.1;
 
       // update start
       _start = millis();
@@ -46,6 +48,32 @@ int Ultrasonic::distance(int now)
   }
   else return -1;
 }
+
+int Ultrasonic::average_dis() {
+    int now_dis = Ultrasonic::distance(millis());
+    if(now_dis > 20){
+        return this->_average_dis;
+    }
+    else{
+        if(this->_average_dis == -1){
+            this -> _average_dis = now_dis;
+            return this -> _average_dis;
+        }else{
+            this -> _average_dis += 0.1*(now_dis - this -> _average_dis);
+            return this -> _average_dis;
+        }
+    }
+}
+
+bool Ultrasonic::detect_obj() {
+    int average = Ultrasonic::average_dis();
+    if(average<10){
+        return true;
+    } else{
+        return false;
+    }
+}
+
 
 void Ultrasonic::print_distance()
 {

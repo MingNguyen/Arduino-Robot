@@ -1,7 +1,12 @@
 #include "Arduino.h"
 #include "DisSensors.h"
 
-DisSensors::DisSensors() {}
+DisSensors::DisSensors() {
+    objFL = false;
+    objFR = false;
+    objBL = false;
+    objBR = false;
+}
 
 int DisSensors::setFL(int trigPin, int echoPin) {
     echoPin_FL = echoPin;
@@ -24,23 +29,41 @@ int DisSensors::setBR(int trigPin, int echoPin) {
 }
 
 void DisSensors::getAllDis() {
-    int now = millis();
-    disFR = _FR.distance(now);
-    disFL = _FL.distance(now);
-    disBR = _BR.distance(now);
-    disBL = _BL.distance(now);
+    _disFR = _FR.average_dis();
+    _disFL = _FL.average_dis();
+    _disBR = _BR.average_dis();
+    _disBL = _BL.average_dis();
+}
+
+void DisSensors::detect_obj() {
+    DisSensors::getAllDis();
+    if(_disFL < 10){
+        objFL = true;
+    } else objFL = false;
+
+    if(_disFR < 10){
+        objFR = true;
+    } else objFR = false;
+
+    if(_disBL < 10){
+        objBL = true;
+    } else objBL = false;
+
+    if(_disBR < 10){
+        objBR = true;
+    } else objBR = false;
 }
 
 void DisSensors::printDis(){
     DisSensors::getAllDis();
     Serial.print("FL: ");
-    Serial.println(disFL);
+    Serial.println(_disFL);
     Serial.print("FR: ");
-    Serial.println(disFR);
+    Serial.println(_disFR);
     Serial.print("BL: ");
-    Serial.println(disBL);
+    Serial.println(_disBL);
     Serial.print("BR: ");
-    Serial.println(disBR);
+    Serial.println(_disBR);
 }
 
 

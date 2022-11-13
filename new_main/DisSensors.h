@@ -16,7 +16,8 @@ public:
     Ultrasonic _BR;
     Ultrasonic _BL;
 
-    int disFL, disFR, disBL, disBR;
+    int _disFL, _disFR, _disBL, _disBR;
+    bool objFL, objFR, objBL, objBR;
 
     DisSensors();
     int setFR(int trigPin, int echoPin);
@@ -25,6 +26,7 @@ public:
     int setBL(int trigPin, int echoPin);
 
     void getAllDis();
+    void detect_obj();
     void printDis();
 };
 

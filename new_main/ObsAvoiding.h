@@ -7,12 +7,14 @@ private:
     /**
      * @param _last_pos: last position of car and object
      * */
-    int _last_pos = 0;
-    int disFL, disFR, disBL, disBR;
+    int _last_pos;
+    bool _finish;
+    int _disFL, _disFR, _disBL, _disBR;
+    int _position;
     DisSensors _myDisSensors;
 public:
     /**
-     * getPosition: based on distance of 4 ultrasonic sensor, determine the position of car and object
+     * getPos: based on distance of 4 ultrasonic sensor, determine the position of car and object
      * return:
      * -2 -> when all dis infinity, out line detect, used to move left -> move right to comeback line
      * -1 -> when disFR <=10    , disFL infinity ->  move left to avoid object
@@ -25,8 +27,10 @@ public:
      * */
     ObsAvoiding();
     ObsAvoiding(DisSensors myDisSensors);
-    void setDisSenSors(DisSensors myDisSensors);
-    int _position = 0;
+    void getDistance();
+    bool objAhead();
+    bool objSide();
+    bool obsFinish(bool line_detect);
     int getPos(bool line_detect);
     void nextAction(Wheels myWheels, int position, int speed);
 
