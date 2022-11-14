@@ -78,7 +78,7 @@ void setup() {
 
   myLineFollow = LineFollow(IR1, IR2, IR3, IR4, IR5);
 
-  mySpeedControl = Speed(myWheels);
+  mySpeedControl = Speed();
   mySpeedControl.setFL(EN1);
   mySpeedControl.setFR(EN2);
   mySpeedControl.setBL(EN3);
@@ -86,7 +86,7 @@ void setup() {
 
   myObsAvoiding = ObsAvoiding(myDisSensors);
 
-  myWheels.stop();
+  myWheels.BR.control(80, true);
 }
 
 
@@ -98,9 +98,9 @@ void loop() {
 
 
 
-    // inLine = myLineFollow.inLine();
+    inLine = myLineFollow.inLine();
     // //myLineFollow.follow(myWheels);
-    // obsPosition = myObsAvoiding.getPos(inLine);
+    obsPosition = myObsAvoiding.getPos(inLine);
     
     // Serial.print("Obj Position: ");
     // Serial.println(obsPosition);
@@ -112,11 +112,11 @@ void loop() {
     // Serial.println(myObsAvoiding._last_pos);
     // Serial.println();
     
-    // myObsAvoiding.nextAction(myWheels, obsPosition, 100);
+    myObsAvoiding.nextAction(myWheels, obsPosition, 100);
 
-    mySpeedControl.updateSpeedBR(40,1);
-    Serial.print("value: ");
-    Serial.println((int)&myWheels);
+    // mySpeedControl.updateSpeedBR(myWheels,40.0,1);
+    // Serial.print("pmw: ");
+    // Serial.println(myWheels.BR.getSpeed());
 
     //Serial.println(myDisSensors._FR.distance_delay());
     // myDisSensors.detect_obj();

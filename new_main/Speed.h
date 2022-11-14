@@ -15,8 +15,6 @@ private:
     double speedList[4];
     double eIntegral[4];
 
-    Wheels &myWheels;
-
     static void countPulseFR();
     static void countPulseFL();
     static void countPulseBR();
@@ -30,7 +28,6 @@ public:
     Encoder _enBL;
     Encoder _enBR;
     Speed();
-    Speed(Wheels &myWheels):myWheels(myWheels){};
 
     void setFL(int enPin);
     void setFR(int enPin);
@@ -38,10 +35,10 @@ public:
     void setBR(int enPin);
     
     void activateMotor(bool a, bool b, bool c,bool d);
-    void updateSpeedFR(double set_speed, double alpha);
-    void updateSpeedFL(double set_speed, double alpha);
-    void updateSpeedBR(double set_speed, double alpha);
-    void updateSpeedBL(double set_speed, double alpha);
+    void updateSpeedFR(Wheels &myWheels,double set_speed, double alpha);
+    void updateSpeedFL(Wheels &myWheels,double set_speed, double alpha);
+    void updateSpeedBR(Wheels &myWheels,double set_speed, double alpha);
+    void updateSpeedBL(Wheels &myWheels,double set_speed, double alpha);
 
 
 };

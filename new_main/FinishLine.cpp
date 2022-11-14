@@ -7,5 +7,5 @@ FinishLine::FinishLine(Wheels &myWheels, Speed &speedControl){
 
 void FinishLine::run1(){
     myWheels.setBL(200,true);
-    speedControl.updateSpeedBR(10,0.5);
+    //speedControl.updateSpeedBR(10,0.5);
 }
