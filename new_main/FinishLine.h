@@ -8,13 +8,13 @@
 class FinishLine
 {
 private:
-    Wheels  myWheels;
-    Speed speedControl;
+    bool status;
 public:
     FinishLine();
     FinishLine(Wheels &myWheels, Speed &speedControl);
-    void run1();
-    void run2();    
+    void run1(Wheels &myWheels, Speed &speedControl);
+    void run2(Wheels &myWheels, Speed &speedControl);
+    bool endRun();
 };
 
 
