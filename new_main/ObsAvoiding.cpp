@@ -6,7 +6,7 @@ ObsAvoiding::ObsAvoiding(){
     _temp = 0;
     _finish = true;
 }
-ObsAvoiding::ObsAvoiding(DisSensors myDisSensors){
+ObsAvoiding::ObsAvoiding(DisSensors &myDisSensors){
     this -> _myDisSensors = myDisSensors;
     _position = 0;
     _last_pos = 0;
@@ -15,19 +15,16 @@ ObsAvoiding::ObsAvoiding(DisSensors myDisSensors){
 }
 
 
-void ObsAvoiding::getDistance() {
-    _myDisSensors.getAllDis();
-    _disFL = _myDisSensors._disFL;
-    _disFR = _myDisSensors._disFR;
-    _disBL = _myDisSensors._disBL;
-    _disBR = _myDisSensors._disBR;
-}
 
 bool ObsAvoiding::objAhead() {
     // if object ahead the car return true
-    _myDisSensors.detect_obj();
     if(_myDisSensors.objFR or _myDisSensors.objFL){
-        this -> _finish = false;
+        if(this -> _finish == true)
+        {
+            this -> _finish = false;
+            _last_pos= 10;
+        }
+        
         return true;
     } else{
         return false;
@@ -35,7 +32,6 @@ bool ObsAvoiding::objAhead() {
 }
 
 bool ObsAvoiding::objSide() {
-    _myDisSensors.detect_obj();
     if(_myDisSensors.objBR or _myDisSensors.objBL){
         return true;
     } else{
@@ -97,14 +93,14 @@ int ObsAvoiding::getPos(bool line_detect) {
       *
       * */
 
-     int check_time = 2;
-    _myDisSensors.getAllDis();
+     int check_time = 0;
+    _myDisSensors.detect_obj();
     switch (_position) {
         case 0:
             //first step
             if(line_detect and ObsAvoiding::objAhead()){
                 //if in line and object ahead
-                if(_disFL < min_front){
+                if(_myDisSensors._disFL < min_front){
                     _last_pos = 1;
                     return 1;
                 } else{
@@ -151,7 +147,7 @@ int ObsAvoiding::getPos(bool line_detect) {
                 return 0;
             } else{
                 _temp++;
-                if(_temp == check_time) {
+                if(_temp > check_time) {
                     _position = 4;
                     _temp = 0;
                 }
@@ -167,7 +163,7 @@ int ObsAvoiding::getPos(bool line_detect) {
                     _position = 0;
                     _temp = 0;
                 }
-                _last_pos = 0;
+                _last_pos = 10;
                 _finish = true;
                 return 9;
             }
@@ -183,7 +179,7 @@ bool ObsAvoiding::obsFinish(bool line_detect) {
     }else return false;
 }
 
-void ObsAvoiding::nextAction(Wheels myWheels, int position, int speed) {
+void ObsAvoiding::nextAction(Wheels &myWheels, int position, int speed) {
     /**
      * getPosition: based on distance of 4 ultrasonic sensor, determine the position of car and object
      * return:
@@ -194,10 +190,19 @@ void ObsAvoiding::nextAction(Wheels myWheels, int position, int speed) {
      * 2  -> when all dis infinity, out line detect, used to move right -> move left to comeback line
      * */
 
+
+
+    if(_last_pos == 10){
+        myWheels.stop();
+        delay(10);
+    }
+        
+
     switch (position) {
         case 9:
             //finish task
             myWheels.stop();
+
         case 0:
             // go forward
             myWheels.movingForward(speed,speed,speed,speed);

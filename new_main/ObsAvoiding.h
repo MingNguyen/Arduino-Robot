@@ -9,7 +9,6 @@ private:
      * */
     
     bool _finish;
-    int _disFL, _disFR, _disBL, _disBR;
     
     int _temp;
     DisSensors _myDisSensors;
@@ -31,12 +30,11 @@ public:
     int _position;
     int _last_pos;
     ObsAvoiding();
-    ObsAvoiding(DisSensors myDisSensors);
-    void getDistance();
+    ObsAvoiding(DisSensors &myDisSensors);
     bool objAhead();
     bool objSide();
     bool obsFinish(bool line_detect);
     int getPos(bool line_detect);
-    void nextAction(Wheels myWheels, int position, int speed);
+    void nextAction(Wheels &myWheels, int position, int speed);
 
 };

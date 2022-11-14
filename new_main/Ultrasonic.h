@@ -16,9 +16,10 @@ class Ultrasonic
     int average_dis();
     bool detect_obj();
     void print_distance();
+    int _average_dis;
   private:
     int _echoPin, _trigPin, _start, _distance;
-    int _average_dis;
+    
 
 };
 

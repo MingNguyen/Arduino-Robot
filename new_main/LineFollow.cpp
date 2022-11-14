@@ -39,6 +39,9 @@ double LineFollow::linePos() {
     if ((_s1 == 1) & (_s2 == 1) & (_s3 == 1) & (_s4 == 1) & (_s5 == 1)){
         return 10;
     }
+    else if ((_s1 == 0) & (_s2 == 0) & (_s3 == 0) & (_s4 == 0) & (_s5 == 0)){
+        return 9;
+    }
 
 
     else if ((_s1 == 1)& (_s2 == 0) & (_s3 == 0) & (_s5 == 0)) {
@@ -69,9 +72,7 @@ double LineFollow::linePos() {
         return -4;
     }
     
-    else if ((_s1 == 0) & (_s2 == 0) & (_s3 == 0) & (_s4 == 0) & (_s5 == 0)){
-        return 9;
-    }
+
 }
 
 double LineFollow::linePID(int kp,double ki, int kd) {
@@ -90,7 +91,7 @@ double LineFollow::linePID(int kp,double ki, int kd) {
 }
 
 
-void LineFollow::follow(Wheels &myWheels, int kp,double ki, int kd, int speed) {
+void LineFollow::follow(Wheels &myWheels) {
     // int PID = linePID(kp,ki,kd);
     // previousError = error;
     // error = linePos();
@@ -165,5 +166,7 @@ bool LineFollow::endLine(){
     return error == 10;
 }
 bool LineFollow::inLine() {
-    return error != 5;
+    Serial.print("Error: ");
+    Serial.println(error);
+    return LineFollow::linePos() != 9;
 }

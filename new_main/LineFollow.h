@@ -14,7 +14,7 @@ public:
 
     double linePos();
     double linePID(int kp,double ki, int kd);
-    void follow(Wheels &myWheels, int kp,double ki, int kd, int speed);
+    void follow(Wheels &myWheels);
     bool inLine();
     bool endLine();
 };

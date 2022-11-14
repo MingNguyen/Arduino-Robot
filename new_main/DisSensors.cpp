@@ -92,73 +92,31 @@ void DisSensors::getAllDis4() {
     }
 }
 
-void DisSensors::getAllDis() {
-  switch (temp){
-    case 0:
-      if(_FR.average_dis() != -1){
-        _disFR = _FR.average_dis();
-        temp = 1;
-      }
-      else{
-        break;
-      }
-
-    case 1:
-      if(_FL.average_dis() != -1){
-        _disFL = _FL.average_dis();
-        temp = 2;
-      }
-      else{
-        break;
-      }
-
-    case 2:
-      if(_BL.average_dis() != -1){
-        _disBL = _BL.average_dis();
-        temp = 3;
-      }
-      else{
-        break;
-      }
-
-    case 3:
-      if(_BR.average_dis() != -1){
-        _disBR = _BR.average_dis();
-        temp = 0;
-      }
-      else{
-        break;
-      }
-  }
-}
 
 void DisSensors::detect_obj() {
-    DisSensors::getAllDis();
-    if(_FR.detect_obj()){
-        objFL = true;
-    } else objFL = false;
+    objFL = _FL.detect_obj();
+    _disFL = _FL._average_dis;
+    
+    objFR = _FR.detect_obj();
+    _disFR = _FR._average_dis;
 
-    if(_FL.detect_obj()){
-        objFR = true;
-    } else objFR = false;
+    objBL = _BL.detect_obj();
+    _disBL = _BL._average_dis;
 
-    if(_BR.detect_obj()){
-        objBL = true;
-    } else objBL = false;
+    objBR = _BR.detect_obj();
+    _disBR = _BR._average_dis;
 
-    if(_BL.detect_obj()){
-        objBR = true;
-    } else objBR = false;
+    
+    DisSensors::printDis();
 }
 
 void DisSensors::printDis(){
-    DisSensors::getAllDis4();
     Serial.print("FL: ");
-    Serial.println(_disFL);
+    Serial.println(_FL._average_dis);
     Serial.print("FR: ");
-    Serial.println(_disFR);
+    Serial.println(_FR._average_dis);
     Serial.print("BL: ");
-    Serial.println(_disBL);
+    Serial.println(_BL._average_dis);
     Serial.print("BR: ");
-    Serial.println(_disBR);
+    Serial.println(_BR._average_dis);
 }

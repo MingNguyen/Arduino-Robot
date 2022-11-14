@@ -86,18 +86,22 @@ void setup() {
 
   myObsAvoiding = ObsAvoiding(myDisSensors);
 
-
+  myWheels.stop();
 }
 
 
 void loop() {
-    //myWheels.movingForward(200,200,200,200);
+    //myWheels.movingForward(70,70,70,70);
     //Serial.print("abc");
     //mySpeedControl.updateMotorSpeed(myWheels, 150, 0.5);
     // // myWheels.movingForward(150,150,150,150);
+
+
+
     // inLine = myLineFollow.inLine();
-    // //myLineFollow.follow(myWheels, 20, 180);
+    // //myLineFollow.follow(myWheels);
     // obsPosition = myObsAvoiding.getPos(inLine);
+    
     // Serial.print("Obj Position: ");
     // Serial.println(obsPosition);
     
@@ -107,13 +111,16 @@ void loop() {
     // Serial.print("last pos: ");
     // Serial.println(myObsAvoiding._last_pos);
     // Serial.println();
-    // //myObsAvoiding.nextAction(myWheels, obsPosition, 120);
-    // myDisSensors.printDis();
+    
+    // myObsAvoiding.nextAction(myWheels, obsPosition, 100);
 
     mySpeedControl.updateSpeedBR(40,1);
-    Serial.print("value");
-    Serial.println(myWheels.BR.getSpeed());
+    Serial.print("value: ");
+    Serial.println((int)&myWheels);
 
+    //Serial.println(myDisSensors._FR.distance_delay());
+    // myDisSensors.detect_obj();
+    
 
     
 

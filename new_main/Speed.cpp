@@ -3,14 +3,20 @@
 #include "Arduino.h"
 #include "Wheels.h"
 
-Speed::Speed(){
+Speed::Speed():myWheels(myWheels){
 }
-Speed::Speed(Wheels& myWheels) {
+
+Speed::Speed(Wheels& myWheels) :myWheels(myWheels){
     _enFR = Encoder();
     _enFL = Encoder();
     _enBR = Encoder();
     _enBL = Encoder();
-    this ->myWheels =myWheels;
+    //Wheels *temp =&myWheels;
+    this -> myWheels = myWheels;
+    Serial.print("s1: ");
+    Serial.println((int)&myWheels);
+    Serial.print("s2: ");
+    Serial.println((int)&this -> myWheels);
 }
 unsigned long Speed::_previousMicros[4];
 unsigned long Speed::_newMicros[4];
@@ -95,5 +101,5 @@ void Speed::updateSpeedBR(double set_speed, double alpha){
     int temp = (int)(e*0.5+eIntegral[3]*0);
     myWheels.BR.updateSpeed(temp);
     Serial.print("change:");
-    Serial.println(temp);
+    Serial.println((int)&myWheels);
 }
