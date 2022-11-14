@@ -8,18 +8,18 @@ class DisSensors{
 private:
     int trigPin;
     int echoPin_FR, echoPin_FL, echoPin_BR, echoPin_BL;
-    int temp;
+    int _temp;
     int _start;
 
 
 public:
-    Ultrasonic _FR;
-    Ultrasonic _FL;
-    Ultrasonic _BR;
-    Ultrasonic _BL;
+    Ultrasonic _ulFR;
+    Ultrasonic _ulFL;
+    Ultrasonic _ulBR;
+    Ultrasonic _ulBL;
 
     int _disFL, _disFR, _disBL, _disBR;
-    bool objFL, objFR, objBL, objBR;
+    bool _objFL, _objFR, _objBL, _objBR;
 
     DisSensors();
     int setFR(int trigPin, int echoPin);
@@ -29,6 +29,7 @@ public:
 
     void getAllDis();
     void getAllDis4();
+    bool detect_cond(int distance);
     void detect_obj();
     void printDis();
 };

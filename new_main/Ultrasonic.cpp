@@ -1,5 +1,6 @@
 #include "Arduino.h"
 #include "Ultrasonic.h"
+#include "D:\Project\Robot\lib\NewPing\src\NewPing.h"
 
 Ultrasonic::Ultrasonic() {
     this ->_start = micros();
@@ -39,7 +40,7 @@ int Ultrasonic::distance(int now)
       digitalWrite(_trigPin, LOW);
 
       // calculate distance
-      distance = (pulseIn(_echoPin, HIGH) /2) /29.423;
+      distance = pulseInLong(_echoPin, HIGH) /2 /29.423;
 
       // update start
       _start = micros();
@@ -88,7 +89,7 @@ int Ultrasonic::average_dis() {
 bool Ultrasonic::detect_obj() {
     _average_dis = Ultrasonic::average_dis();
     // detect object, distance from[3:10]
-    if(_average_dis < 25 and _average_dis > 5){
+    if(_average_dis < 20 and _average_dis > 3){
         return true;
     } else{
         return false;

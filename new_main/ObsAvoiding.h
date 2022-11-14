@@ -9,7 +9,8 @@ private:
      * */
     
     bool _finish;
-    
+    int _disFL, _disFR, _disBL, _disBR;
+
     int _temp;
     DisSensors _myDisSensors;
 public:
@@ -31,6 +32,7 @@ public:
     int _last_pos;
     ObsAvoiding();
     ObsAvoiding(DisSensors &myDisSensors);
+    void getDistance();
     bool objAhead();
     bool objSide();
     bool obsFinish(bool line_detect);

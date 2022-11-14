@@ -14,17 +14,14 @@ ObsAvoiding::ObsAvoiding(DisSensors &myDisSensors){
     _finish = true;
 }
 
-
-
 bool ObsAvoiding::objAhead() {
     // if object ahead the car return true
-    if(_myDisSensors.objFR or _myDisSensors.objFL){
+    if(_myDisSensors._objFR or _myDisSensors._objFL){
         if(this -> _finish == true)
         {
             this -> _finish = false;
-            _last_pos= 10;
+            _last_pos = 10;
         }
-        
         return true;
     } else{
         return false;
@@ -32,7 +29,7 @@ bool ObsAvoiding::objAhead() {
 }
 
 bool ObsAvoiding::objSide() {
-    if(_myDisSensors.objBR or _myDisSensors.objBL){
+    if(_myDisSensors._objBR or _myDisSensors._objBL){
         return true;
     } else{
         return false;
@@ -93,83 +90,53 @@ int ObsAvoiding::getPos(bool line_detect) {
       *
       * */
 
-     int check_time = 0;
-    _myDisSensors.detect_obj();
+    _myDisSensors.getAllDis4();
     switch (_position) {
         case 0:
             //first step
             if(line_detect and ObsAvoiding::objAhead()){
                 //if in line and object ahead
-                if(_myDisSensors._disFL < min_front){
-                    _last_pos = 1;
-                    return 1;
-                } else{
-                    _last_pos = -1;
-                    return -1;
-                }
-            } else if(!line_detect and ObsAvoiding::objAhead()){
-                _temp++;
-                if(_temp > check_time){
-                    _position = 1;
-                    _temp = 0;
-                }
-                return _last_pos;
+                // -1: move left, +1: move right
+                _last_pos = 1;
+                _position = 1;
+                return 1;
             } else {
-              if(_last_pos != 0)
-                return _last_pos;
-              else return 9;
+                _last_pos = 0;
+                _finish = true;
+                return 9;
             }
 
         case 1:
             if(ObsAvoiding::objAhead()){
                 return _last_pos;
             }else{
-                _temp++;
-                if(_temp > check_time) {
-                    _position = 2;
-                    _temp = 0;
-                }
-                return _last_pos;
+                _position = 2;
+                return 0;
             }
         case 2:
             if(!ObsAvoiding::objSide()){
                 return 0;
             } else{
-                _temp++;
-                if(_temp > check_time) {
-                    _position = 3;
-                    _temp = 0;
-                }
+                _position = 3;
                 return 0;
             }
         case 3:
             if(ObsAvoiding::objSide()){
                 return 0;
             } else{
-                _temp++;
-                if(_temp > check_time) {
-                    _position = 4;
-                    _temp = 0;
-                }
-                
+                _position = 4;
                 return _last_pos*2;
             }
         case 4:
             if(!line_detect){
-                return _last_pos;
+                return _last_pos*2;
             } else{
-                _temp++;
-                if(_temp > check_time) {
-                    _position = 0;
-                    _temp = 0;
-                }
+                _position = 0;
                 _last_pos = 10;
                 _finish = true;
                 return 9;
             }
     }
-
-
 
 }
 
@@ -189,23 +156,22 @@ void ObsAvoiding::nextAction(Wheels &myWheels, int position, int speed) {
      * 1  -> when disFR infinity, disFL <=10     -> object before + left side  -> move right to avoid object
      * 2  -> when all dis infinity, out line detect, used to move right -> move left to comeback line
      * */
-
-
-
-    if(_last_pos == 10){
-        myWheels.stop();
-        delay(10);
-    }
-        
+    myWheels.stop();
 
     switch (position) {
         case 9:
             //finish task
             myWheels.stop();
+            delay(10);
 
         case 0:
             // go forward
-            myWheels.movingForward(speed,speed,speed,speed);
+            if(_last_pos == 10){
+                myWheels.stop();
+                delay(10);
+            }else {
+                myWheels.movingForward(speed,speed,speed,speed);
+            }
             break;
         case 1:
             // move right

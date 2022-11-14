@@ -118,7 +118,7 @@ void loop() {
     // Serial.print("pmw: ");
     // Serial.println(myWheels.BR.getSpeed());
 
-    //Serial.println(myDisSensors._FR.distance_delay());
+    //Serial.println(myDisSensors._ulFR.distance_delay());
     // myDisSensors.detect_obj();
     
 
