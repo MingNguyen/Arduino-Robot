@@ -37,6 +37,7 @@ int echoFL = A0, echoFR = A1, echoBL = A2, echoBR = A3;
 int s1;
 bool inLine;
 int obsPosition;
+int taskID;
 
 Wheels myWheels;
 DisSensors myDisSensors;
@@ -87,6 +88,8 @@ void setup() {
   myObsAvoiding = ObsAvoiding(myDisSensors);
 
   myWheels.BR.control(80, true);
+
+  taskID = 0;
 }
 
 
@@ -96,7 +99,13 @@ void loop() {
     //mySpeedControl.updateMotorSpeed(myWheels, 150, 0.5);
     // // myWheels.movingForward(150,150,150,150);
 
-
+    if (taskID == 0){
+      myLineFollow.follow(myWheels);
+      if (myObsAvoiding.objAhead())taskID = 1;
+    }
+    else if (taskID == 1){
+      myObsAvoiding.nextAction(myWheels,obsPosition,100);
+    }
 
     inLine = myLineFollow.inLine();
     // //myLineFollow.follow(myWheels);
