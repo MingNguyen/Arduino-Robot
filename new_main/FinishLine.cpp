@@ -7,43 +7,31 @@ bool FinishLine::endRun(){
     return status;
 }
 void FinishLine::run1(Wheels &myWheels, Speed &speedControl){
-    unsigned long time = millis();
-    myWheels.movingForward(90,90,90,90);
-    speedControl.updateSpeedFL(myWheels,40,1);
-    speedControl.updateSpeedFR(myWheels,40,1);
-    speedControl.updateSpeedBL(myWheels,40,1);
-    speedControl.updateSpeedBR(myWheels,40,1);
-    if(time >= millis() - 3000){
-        time = millis();
-        myWheels.turnRight(90,90,90,90);
-        delay(200);
-        myWheels.movingForward(90,90,90,90);
-        speedControl.updateSpeedFL(myWheels,40,1);
-        speedControl.updateSpeedFR(myWheels,40,1);
-        speedControl.updateSpeedBL(myWheels,40,1);
-        speedControl.updateSpeedBR(myWheels,40,1);
-        if (time >= millis() - 4000) status = false;
-
-    }
+    myWheels.FR.updateDir(true);
+    myWheels.BL.updateDir(true);
+    myWheels.FL.updateDir(true);
+    myWheels.BR.updateDir(true);
+    speedControl.updateSpeedFR(myWheels,20,1);
+    speedControl.updateSpeedBL(myWheels,80,1);
+    speedControl.updateSpeedFL(myWheels,80,1);
+    speedControl.updateSpeedBR(myWheels,20,1);
+    Serial.print("nhanh: ");
+    Serial.println(myWheels.FR.getSpeed());
+    Serial.print("cham: ");
+    Serial.println(myWheels.BR.getSpeed());
 }
 // case turn left
 void FinishLine::run2(Wheels &myWheels, Speed &speedControl){
-    unsigned long time = millis();
-    myWheels.movingForward(90,90,90,90);
-    speedControl.updateSpeedFL(myWheels,40,1);
-    speedControl.updateSpeedFR(myWheels,40,1);
-    speedControl.updateSpeedBL(myWheels,40,1);
-    speedControl.updateSpeedBR(myWheels,40,1);
-    if(time >= millis() - 3000){
-        time = millis();
-        myWheels.turnLeft(90,90,90,90);
-        delay(200);
-        myWheels.movingForward(90,90,90,90);
-        speedControl.updateSpeedFL(myWheels,40,1);
-        speedControl.updateSpeedFR(myWheels,40,1);
-        speedControl.updateSpeedBL(myWheels,40,1);
-        speedControl.updateSpeedBR(myWheels,40,1);
-        if (time >= millis() - 4000) status = false;
-
-    }
+    myWheels.FR.updateDir(true);
+    myWheels.BL.updateDir(true);
+    myWheels.FL.updateDir(true);
+    myWheels.BR.updateDir(true);
+    speedControl.updateSpeedFL(myWheels,5,1);
+    speedControl.updateSpeedBR(myWheels,90,1);
+    speedControl.updateSpeedFR(myWheels,90,1);
+    speedControl.updateSpeedBL(myWheels,5,1);
+    Serial.print("nhanh: ");
+    Serial.println(myWheels.FR.getSpeed());
+    Serial.print("cham: ");
+    Serial.println(myWheels.BR.getSpeed());
 }

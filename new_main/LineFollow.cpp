@@ -39,6 +39,8 @@ double LineFollow::linePos() {
     if ((_s1 == 1) & (_s2 == 1) & (_s3 == 1) & (_s4 == 1) & (_s5 == 1)){
         return 10;
     }
+
+
     else if ((_s1 == 0) & (_s2 == 0) & (_s3 == 0) & (_s4 == 0) & (_s5 == 0)){
         return 9;
     }
@@ -59,7 +61,7 @@ double LineFollow::linePos() {
     else if ((_s1 == 0) & (_s2 == 1) & (_s3 == 1) & (_s4 == 1) & (_s5 == 0)){
         return 0;
     }
-    else if ((_s1 == 0) & (_s3 == 1) & (_s4 == 1)){
+    else if ((_s1 == 0) & ((_s2 == 1) &_s3 == 1) & (_s4 == 1)){
         return -1;
     }
     else if ((_s1 == 0) & (_s2 == 0) & (_s3 == 0) & (_s4 == 1)&(_s5 == 0)){
@@ -140,33 +142,30 @@ void LineFollow::follow(Wheels &myWheels) {
     if(error == 0){
         myWheels.movingForward(170, 170, 170, 170);
     }else if (error == 4){
-        myWheels.movingForward(240, 0, 240, 0);
+        myWheels.movingForward(250, 0, 250, 0);
     }else if (error == 3){
-        myWheels.movingForward(210, 150, 210, 150);
+        myWheels.movingForward(220, 120, 220, 120);
     }else if (error == 2){
         myWheels.movingForward(170, 150, 170, 150);
     }else if (error == 1){
         myWheels.movingForward(170, 160, 170, 160);
     }else if (error == -1){
-        myWheels.movingForward(160, 170, 160, 170);
+        myWheels.movingForward(150, 160, 150, 160);
     }else if (error == -2){
-        myWheels.movingForward(150, 170, 150, 170);
+        myWheels.movingForward(150, 190, 150, 190);
     }else if (error == -3){
-        myWheels.movingForward(100, 210, 100, 210);
+        myWheels.movingForward(100, 230, 100, 230);
     }else if (error == -4){
-        myWheels.movingForward(0, 240, 0, 240);
+        myWheels.movingForward(0, 250, 0, 250);
 
 
-    }else if (error == 10){
-        myWheels.stop();
     }
-    else{}
 }
 bool LineFollow::endLine(){
     return error == 10;
 }
 bool LineFollow::inLine() {
     Serial.print("Error: ");
-    Serial.println(error);
-    return LineFollow::linePos() != 9;
+    Serial.println(error); 
+    return _s1 || _s2 || _s3 || _s5;
 }

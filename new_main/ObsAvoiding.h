@@ -1,6 +1,7 @@
 #include "Arduino.h"
 #include "DisSensors.h"
 #include "Wheels.h"
+#include "Speed.h"
 
 class ObsAvoiding{
 private:
@@ -12,6 +13,8 @@ private:
     int _disFL, _disFR, _disBL, _disBR;
 
     int _temp;
+    int _speed;
+
     DisSensors _myDisSensors;
 public:
     /**
@@ -37,6 +40,6 @@ public:
     bool objSide();
     bool obsFinish(bool line_detect);
     int getPos(bool line_detect);
-    void nextAction(Wheels &myWheels, int position, int speed);
+    void nextAction(long time,Wheels &myWheels,Speed &mySpeedControl, int position, int speed);
 
 };

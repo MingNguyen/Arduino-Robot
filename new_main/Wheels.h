@@ -31,6 +31,14 @@ public:
     void turnLeft(int valueFR, int valueFL, int valueBR, int valueBL);
     void turnRight(int valueFR, int valueFL, int valueBR, int valueBL);
     void stop();
+
+    
+    void dirForward();
+    void dirBackward();
+    void dirLeft();
+    void dirRight();
+    void dirTurnLeft();
+    void dirTurnRight();
 };
 
 #endif

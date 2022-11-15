@@ -32,3 +32,6 @@ void Motor::updateSpeed(int alpha) {
 int Motor::getSpeed(){
     return _speed;
 }
+void Motor::updateDir(bool dir){
+    _dir = dir;
+}

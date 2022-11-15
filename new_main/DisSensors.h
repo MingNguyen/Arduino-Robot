@@ -32,6 +32,7 @@ public:
     bool detect_cond(int distance);
     void detect_obj();
     void printDis();
+    void printDis4();
 };
 
 #endif

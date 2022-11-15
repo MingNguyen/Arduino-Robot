@@ -1,6 +1,6 @@
 #include "Arduino.h"
 #include "Ultrasonic.h"
-#include "D:\Project\Robot\lib\NewPing\src\NewPing.h"
+
 
 Ultrasonic::Ultrasonic() {
     this ->_start = micros();

@@ -6,6 +6,10 @@ DisSensors::DisSensors() {
     _objFR = false;
     _objBL = false;
     _objBR = false;
+    _disFL = 0.0;
+    _disFR = 0.0;
+    _disBL = 0.0;
+    _disBR = 0.0;
     _start = micros();
     _temp = 1;
 }
@@ -33,34 +37,36 @@ int DisSensors::setBR(int trigPin, int echoPin) {
 }
 
 void DisSensors::getAllDis4() {
-    int timer = 5;
+    int timer = 2;
+    Serial.println(_temp);
     switch (_temp){
         // front left
         case 1:
-            digitalWrite(trigPin, HIGH);
+            digitalWrite(_ulFL._trigPin, HIGH);
             _temp=2;
             break;
         case 2:
 
             if (micros()-_start >= timer){
-                digitalWrite(trigPin, LOW);
+                digitalWrite(_ulFL._trigPin, LOW);
                 _start = micros();
-                _disFL = pulseInLong(echoPin_FL, HIGH) /2 /29.423;
+                _disFL = pulseInLong(_ulFL._echoPin, HIGH) /2 /29.423;
                 _objFL = detect_cond(_disFL);
+                Serial.print(_objFL);
                 _temp = 3;
             }
             break;
 
         // front right
         case 3:
-            digitalWrite(trigPin, HIGH);
+            digitalWrite(_ulFR._trigPin, HIGH);
             _temp=4;
             break;
         case 4:
             if (micros()-_start >= timer){
-                digitalWrite(trigPin, LOW);
+                digitalWrite(_ulFR._trigPin, LOW);
                 _start = micros();
-                _disFR = pulseInLong(echoPin_FR, HIGH) /2 /29.423;
+                _disFR = pulseInLong(_ulFR._echoPin, HIGH) /2 /29.423;
                 _objFR = detect_cond(_disFR);
                 _temp = 5;
             }
@@ -68,14 +74,14 @@ void DisSensors::getAllDis4() {
 
         // back left
         case 5:
-            digitalWrite(trigPin, HIGH);
+            digitalWrite(_ulBL._trigPin, HIGH);
             _temp=6;
             break;
         case 6:
             if (micros()-_start >= timer){
-                digitalWrite(trigPin, LOW);
+                digitalWrite(_ulBL._trigPin, LOW);
                 _start = millis();
-                _disBL = pulseInLong(echoPin_BL, HIGH) /2 /29.423;
+                _disBL = pulseInLong(_ulBL._echoPin, HIGH) /2 /29.423;
                 _objBL = detect_cond(_disBL);
                 _temp = 7;
             }
@@ -83,23 +89,24 @@ void DisSensors::getAllDis4() {
 
         // back right
         case 7:
-            digitalWrite(trigPin, HIGH);
+            digitalWrite(_ulBR._trigPin, HIGH);
             _temp = 8;
             break;
         case 8:
             if (micros()-_start >= timer){
-                digitalWrite(trigPin, LOW);
+                digitalWrite(_ulBR._trigPin, LOW);
                 _start = millis();
-                _disBR = pulseInLong(echoPin_BR, HIGH) /2 /29.423;
+                _disBR = pulseInLong(_ulBR._echoPin, HIGH) /2 /29.423;
                 _objBR = detect_cond(_disBR);
                 _temp = 1;
             }
             break;
     }
+    DisSensors::printDis4();
 }
 
 bool DisSensors::detect_cond(int distance) {
-    if(distance < 25 and distance > 5){
+    if(distance < 33 and distance > 3){
         return true;
     } else{
         return false;
@@ -132,4 +139,15 @@ void DisSensors::printDis(){
     Serial.println(_ulBL._average_dis);
     Serial.print("BR: ");
     Serial.println(_ulBR._average_dis);
+}
+
+void DisSensors::printDis4(){
+    Serial.print("FL: ");
+    Serial.println(_disFL);
+    Serial.print("FR: ");
+    Serial.println(_disFR);
+    Serial.print("BL: ");
+    Serial.println(_disBL);
+    Serial.print("BR: ");
+    Serial.println(_disBR);
 }

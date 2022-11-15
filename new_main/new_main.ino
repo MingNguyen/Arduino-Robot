@@ -6,6 +6,7 @@
 #include "ObsAvoiding.h"
 #include "Speed.h"
 #include "LineFollow.h"
+#include "FinishLine.h"
 
 int IN1_A = 7;
 int IN2_A = 6;
@@ -38,12 +39,14 @@ int s1;
 bool inLine;
 int obsPosition;
 int taskID;
+long time;
 
 Wheels myWheels;
 DisSensors myDisSensors;
 ObsAvoiding myObsAvoiding;
 LineFollow myLineFollow;
 Speed mySpeedControl;
+FinishLine myFinishLine;
 
 
 void setup() {
@@ -87,9 +90,10 @@ void setup() {
 
   myObsAvoiding = ObsAvoiding(myDisSensors);
 
-  myWheels.BR.control(80, true);
+  myFinishLine = FinishLine();
 
   taskID = 0;
+
 }
 
 
@@ -99,17 +103,42 @@ void loop() {
     //mySpeedControl.updateMotorSpeed(myWheels, 150, 0.5);
     // // myWheels.movingForward(150,150,150,150);
 
-    if (taskID == 0){
-      myLineFollow.follow(myWheels);
-      if (myObsAvoiding.objAhead())taskID = 1;
-    }
-    else if (taskID == 1){
-      myObsAvoiding.nextAction(myWheels,obsPosition,100);
-    }
-
     inLine = myLineFollow.inLine();
     // //myLineFollow.follow(myWheels);
     obsPosition = myObsAvoiding.getPos(inLine);
+
+    if (taskID == 0){
+      myLineFollow.follow(myWheels);
+      if (myObsAvoiding.objAhead()){
+        taskID = 1;
+        time = millis();
+        }
+      if (myLineFollow.endLine()){
+        time = millis();
+        taskID = 2;
+      }
+    }
+    else if (taskID == 1){
+      myObsAvoiding.nextAction(time,myWheels,mySpeedControl,obsPosition,120);
+      if(myObsAvoiding.obsFinish(inLine)){
+        taskID = 0;
+      }
+    }
+    else if(taskID == 2){
+      
+        myFinishLine.run2(myWheels,mySpeedControl);
+        if (millis()-time >= 6800){
+          myWheels.movingForward(100,100,100,100);
+          if (millis()-time >= 7500){
+            myWheels.stop();
+          }
+        }
+    }
+    
+
+    
+
+    
     
     // Serial.print("Obj Position: ");
     // Serial.println(obsPosition);
@@ -121,7 +150,6 @@ void loop() {
     // Serial.println(myObsAvoiding._last_pos);
     // Serial.println();
     
-    myObsAvoiding.nextAction(myWheels, obsPosition, 100);
 
     // mySpeedControl.updateSpeedBR(myWheels,40.0,1);
     // Serial.print("pmw: ");

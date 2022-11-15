@@ -81,3 +81,40 @@ void Wheels::stop(){
     BR.control(0, true);
     BL.control(0, true);
 }
+
+void Wheels::dirForward(){
+    FR.updateDir(true);
+    FL.updateDir(true);
+    BR.updateDir(true);
+    BL.updateDir(true);
+}
+void Wheels::dirBackward(){
+    FR.updateDir(false);
+    FL.updateDir(false);
+    BR.updateDir(false);
+    BL.updateDir(false);
+}
+void Wheels::dirLeft(){
+    FR.updateDir(true);
+    FL.updateDir(false);
+    BR.updateDir(false);
+    BL.updateDir(true);
+}
+void Wheels::dirRight(){
+    FR.updateDir(false);
+    FL.updateDir(true);
+    BR.updateDir(true);
+    BL.updateDir(false);
+}
+void Wheels::dirTurnLeft(){
+    FR.updateDir(true);
+    FL.updateDir(false);
+    BR.updateDir(true);
+    BL.updateDir(false);
+}
+void Wheels::dirTurnRight(){
+    FR.updateDir(false);
+    FL.updateDir(true);
+    BR.updateDir(false);
+    BL.updateDir(true);
+}
